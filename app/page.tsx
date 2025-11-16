@@ -1,7 +1,9 @@
-import Image from "next/image";
+import { CareerUPHome } from "./modules/home";
 
 export default function Home() {
   return (
-    <main></main>
+    <>
+      <CareerUPHome />
+    </>
   );
 }
