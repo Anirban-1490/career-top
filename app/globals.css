@@ -13,6 +13,8 @@
   --spacing-xl: 4rem;
   --text-xxl: 4.5rem;
   --text-md: 1.5rem;
+  --text-lg: 2rem;
+  --text-xl: 3rem;
   --color-neon-red: #F5004F;
   --color-accent-neon-red: var(--accent-neon-red);
   --color-neon-yellow: rgb(249, 228, 0);
