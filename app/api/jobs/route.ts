@@ -23,11 +23,11 @@ export async function GET(request: NextRequest) {
       status: 200,
     });
   } catch (error) {
-    const { response, status } = { ...error };
+    // const newError = structuredClone(error) ;
 
     return Response.json(
-      { error, message: response.data.message },
-      { status: status }
+      { error, message: "Unexpected Server Error" },
+      { status: 500 }
     );
   }
 }
