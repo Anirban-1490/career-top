@@ -3,7 +3,9 @@ import { Navbar } from "./components/navbar";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
 
-export const CareerUPHome = () => {
+export const CareerUPHome = async () => {
+  await fetch("/api");
+
   return (
     <main>
       <Navbar />
@@ -16,9 +18,12 @@ export const CareerUPHome = () => {
             </h1>
           </div>
 
-          <div className="w-full flex flex-col gap-4 items-center">
-            <div className="w-[min(100%,40rem)] relative">
-              <Input type="text" className="w-full h-[3.5rem] !text-md " />
+          <div className="w-[min(100%,40rem)] flex flex-col items-center">
+            <div className=" w-full relative">
+              <Input
+                type="text"
+                className="w-full h-[3.5rem] !text-md rounded-bl-none rounded-br-none shadow-none border border-background/10"
+              />
               <Button
                 size={"lg"}
                 className=" absolute right-2 top-[50%] translate-y-[-50%]"
@@ -27,7 +32,7 @@ export const CareerUPHome = () => {
                 Search
               </Button>
             </div>
-            <div className="w-[min(100%,50rem)] bg-foreground h-[20rem] rounded-md"></div>
+            <div className=" w-full bg-foreground h-[20rem] rounded-bl-md rounded-br-md"></div>
           </div>
         </div>
       </section>
