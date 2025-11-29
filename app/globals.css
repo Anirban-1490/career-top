@@ -11,6 +11,8 @@
 
   --spacing-lg: 3.5rem;
   --spacing-xl: 4rem;
+  --spacing-2xl: 5rem;
+
   --text-xxl: 4.5rem;
   --text-md: 1.5rem;
   --text-lg: 2rem;
@@ -133,6 +135,7 @@ body {
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -140,5 +143,22 @@ body {
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+.company_name__container {
+
+  translate: 0 0;
+  animation-name: scroll-effect;
+  animation-timing-function: linear;
+  animation-duration: 20s;
+  animation-iteration-count: infinite;
+  /* animation-delay: -20s; */
+}
+
+@keyframes scroll-effect {
+
+  to {
+    translate: calc(-50% - 0.1rem) 0;
   }
 }
