@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 
 export const Navbar = () => {
   return (
-    <header className="h-xl py-lg">
+    <header className=" py-4.5  sticky top-0 z-10 bg-background ">
       <div className=" h-full mx-20 flex items-center gap-4">
         <h2 className=" w-fit font-bold text-md  first-letter:text-neon-red first-letter:text-5xl">
           CareerTOP
