@@ -9,6 +9,7 @@ import { reviews } from "./model/review";
 import { pricingPlans } from "./model/price-data";
 import { Button } from "@/components/ui/button";
 import { CircleCheck } from "lucide-react";
+import { Footer } from "@/components/common/footer";
 
 const CareerUPHome = () => {
   return (
@@ -313,7 +314,7 @@ const CareerUPHome = () => {
           </Bubble>
         </div>
       </section>
-      <footer></footer>
+      <Footer />
     </main>
   );
 };
