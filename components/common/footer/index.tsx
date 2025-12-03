@@ -67,7 +67,7 @@ export function Footer() {
       </div>
       <div>
         <p className="mx-auto w-full text-center mt-[10rem] py-5 text-sm">
-          Copyright © {new Date().getFullYear()} Lucide Contributors
+          Copyright © {new Date().getFullYear()} Careertop
         </p>
       </div>
     </footer>
