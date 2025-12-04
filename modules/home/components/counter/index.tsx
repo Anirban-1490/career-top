@@ -11,7 +11,7 @@ export function Counter({ endValue, startValue = 0, ...props }: ICounterProps) {
   const { number } = useSpring({
     from: { number: startValue },
     to: { number: endValue },
-    delay: 100,
+    delay: 300,
   });
 
   return (
