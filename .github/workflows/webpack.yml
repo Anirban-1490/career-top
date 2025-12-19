@@ -26,3 +26,4 @@ jobs:
       run: |
         npm install
         npm i @next/bundle-analyzer
+        ANALYZE=true npm run build
