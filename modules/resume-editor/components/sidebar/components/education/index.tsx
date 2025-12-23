@@ -1,13 +1,13 @@
+import React from "react";
+import { IControlProps } from "../../type";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import React from "react";
-import { IControlProps } from "../../type";
 import { AddEntry } from "../ui/add-entry";
-import { DEFAULT_PROJECTS } from "./constant";
+import { DEFAULT_EDUCATION } from "./constant";
 import { InputWithControl } from "../ui/input-with-control";
 import { DatepickerWithControl } from "../ui/datepicker-with-control";
 import { CheckboxWithControl } from "../ui/checkbox-with-control";
@@ -15,17 +15,17 @@ import { WYSIWYGWithControl } from "../ui/wysiwyg-with-control";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 
-export function Projects({ control }: IControlProps) {
+export function Education({ control }: IControlProps) {
   return (
-    <AccordionItem value="projects">
-      <AccordionTrigger>Projects</AccordionTrigger>
+    <AccordionItem value="education">
+      <AccordionTrigger>Education</AccordionTrigger>
       <AccordionContent className=" flex flex-col gap-9">
         <AddEntry
-          name="projects"
-          defaultValue={DEFAULT_PROJECTS}
+          name="education"
+          defaultValue={DEFAULT_EDUCATION}
           control={control}
-          noEntryHeader="No projects added"
-          noEntryDescription="Please add some more projects for a better resume"
+          noEntryHeader="No education added"
+          noEntryDescription="Please add some more education for a better resume"
         >
           {(fields) => {
             return (
@@ -34,46 +34,55 @@ export function Projects({ control }: IControlProps) {
                 collapsible
                 type="single"
               >
-                {fields.map((project, index) => {
+                {fields.map((education, index) => {
                   return (
-                    <AccordionItem key={project.id} value={project.title}>
+                    <AccordionItem key={education.id} value={education.id}>
                       <AccordionTrigger>
-                        {project.title + ` #${index + 1}`}
+                        {education.degree
+                          ? education.degree
+                          : `Education #${index + 1}`}
                       </AccordionTrigger>
                       <AccordionContent className="grid grid-cols-2 gap-y-8 gap-x-3">
                         <InputWithControl
-                          name={`projects.${index}.title`}
+                          name={`education.${index}.degree`}
                           control={control}
-                          labelContent={"Project Title"}
+                          labelContent={"Degree"}
                         />
                         <InputWithControl
-                          name={`projects.${index}.url`}
+                          name={`education.${index}.institute`}
                           control={control}
-                          labelContent={"Project URL"}
+                          labelContent={"Institute"}
+                        />
+                        <InputWithControl
+                          name={`education.${index}.location`}
+                          control={control}
+                          labelContent={"Location"}
                         />
 
                         <DatepickerWithControl
-                          name={`projects.${index}.startDate`}
+                          name={`education.${index}.startDate`}
                           control={control}
                           labelContent="Start Date"
                         />
                         <DatepickerWithControl
-                          name={`projects.${index}.endDate`}
+                          name={`education.${index}.endDate`}
                           control={control}
                           labelContent="End Date"
                         />
 
                         <CheckboxWithControl
-                          name={`projects.${index}.isCurrentlyWorking`}
+                          name={`education.${index}.isCurrentlyStudying`}
                           control={control}
-                          labelContent={"I am currently working on the project"}
-                          id={`${project.id}`}
+                          labelContent={
+                            "I am currently studying in this institute"
+                          }
+                          id={`${education.id}`}
                         />
 
                         <WYSIWYGWithControl
-                          labelContent="Desciption"
+                          labelContent="Description"
                           control={control}
-                          name={`projects.${index}.description`}
+                          name={`education.${index}.description`}
                         />
 
                         <Button

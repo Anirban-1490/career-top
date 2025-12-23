@@ -1,11 +1,12 @@
 import z from "zod";
 
-export const projectSchema = z.object({
+export const educationSchema = z.object({
   id: z.string(),
-  title: z.string(),
+  degree: z.string(),
+  institute: z.string(),
   description: z.string().optional(),
-  url: z.url().optional(),
+  location: z.string(),
   startDate: z.date().nullable().optional(),
   endDate: z.date().nullable().optional(),
-  isCurrentlyWorking: z.boolean().catch(false),
+  isCurrentlyStudying: z.boolean().catch(false),
 });
