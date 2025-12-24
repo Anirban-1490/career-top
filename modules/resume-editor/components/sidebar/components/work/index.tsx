@@ -8,19 +8,34 @@ import { IControlProps } from "../../type";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import { DEFAULT_WORK_EXPERIENCE } from "./constant";
-
 import dynamic from "next/dynamic";
-import { InputWithControl } from "../ui/input-with-control";
-import { DatepickerWithControl } from "../ui/datepicker-with-control";
-import { CheckboxWithControl } from "../ui/checkbox-with-control";
 import { AddEntry } from "../ui/add-entry";
-import { WYSIWYGWithControl } from "../ui/wysiwyg-with-control";
+import { useWatch } from "react-hook-form";
 
-const DynamicInputWithControl = dynamic(() =>
+const InputWithControl = dynamic(() =>
   import("../ui/input-with-control").then((value) => value.InputWithControl)
 );
 
+const DatepickerWithControl = dynamic(() =>
+  import("../ui/datepicker-with-control").then(
+    (value) => value.DatepickerWithControl
+  )
+);
+
+const CheckboxWithControl = dynamic(() =>
+  import("../ui/checkbox-with-control").then(
+    (value) => value.CheckboxWithControl
+  )
+);
+const WYSIWYGWithControl = dynamic(() =>
+  import("../ui/wysiwyg-with-control").then((value) => value.WYSIWYGWithControl)
+);
+
 export function WorkInfo({ control }: IControlProps) {
+  const watch = useWatch({
+    control: control,
+  });
+
   return (
     <AccordionItem value="work-info">
       <AccordionTrigger>Work Experience</AccordionTrigger>
@@ -41,17 +56,18 @@ export function WorkInfo({ control }: IControlProps) {
               >
                 {fields.map((experience, index) => {
                   return (
-                    <AccordionItem
-                      key={experience.id}
-                      value={experience.company}
-                    >
+                    <AccordionItem key={experience.id} value={experience.id}>
                       <AccordionTrigger className=" text-white">
-                        <div className="flex items-center gap-2">
-                          {experience.role} -
-                          <span className=" text-neon-red">
-                            {experience.company}
-                          </span>
-                        </div>
+                        {experience.role ? (
+                          <div className="flex items-center gap-2">
+                            {experience.role} -
+                            <span className=" text-neon-red">
+                              {experience.company}
+                            </span>
+                          </div>
+                        ) : (
+                          `Experience #${index}`
+                        )}
                       </AccordionTrigger>
                       <AccordionContent className="grid grid-cols-2 gap-y-8 gap-x-3">
                         <InputWithControl
@@ -78,6 +94,9 @@ export function WorkInfo({ control }: IControlProps) {
                           name={`workExperience.${index}.endDate`}
                           control={control}
                           labelContent="End Date"
+                          disabled={Boolean(
+                            watch.workExperience?.[index]?.currentlyWorking
+                          )}
                         />
 
                         <CheckboxWithControl
@@ -91,12 +110,12 @@ export function WorkInfo({ control }: IControlProps) {
                           name={`workExperience.${index}.currentlyWorking`}
                           control={control}
                           labelContent={"I am currently working here"}
-                          id="working"
+                          id={experience.id}
                         />
                         <WYSIWYGWithControl
                           labelContent="Desciption"
                           control={control}
-                          name="workExperience.0.description"
+                          name={`workExperience.${index}.description`}
                         />
 
                         <Button
