@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export const Navbar = () => {
   return (
@@ -14,12 +15,14 @@ export const Navbar = () => {
           <Button variant={"ghost"} className=" uppercase font-bold  text-base">
             LOG IN
           </Button>
-          <Button
-            size={"lg"}
-            className=" uppercase font-bold  text-base bg-neon-red text-white hover:bg-accent-neon-red"
-          >
-            SIGN UP
-          </Button>
+          <Link href={"/dashboard"}>
+            <Button
+              size={"lg"}
+              className=" uppercase font-bold  text-base bg-neon-red text-white hover:bg-accent-neon-red"
+            >
+              SIGN UP
+            </Button>
+          </Link>
         </div>
       </div>
       <nav></nav>

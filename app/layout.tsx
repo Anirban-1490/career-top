@@ -28,8 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} ${geistMono.variable} antialiased`}>
         <Provider>
-          <Navbar />
-          {children}
+          <main className=" min-h-dvh flex flex-col">{children}</main>
         </Provider>
       </body>
     </html>

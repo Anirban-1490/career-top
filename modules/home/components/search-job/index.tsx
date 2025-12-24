@@ -15,20 +15,20 @@ interface IHomeSearchJobProps {
 }
 
 const SearchJob = () => {
-  const {
-    data: jobsData,
-    isLoading,
-    error,
-    isError,
-  } = useQuery({
-    queryKey: ["jobs-data"],
-    queryFn: () =>
-      axios.get<IJobsResponseProps>("http://localhost:3000/api/jobs"),
-    select(data) {
-      return data.data;
-    },
-    retry: 1,
-  });
+  // const {
+  //   data: jobsData,
+  //   isLoading,
+  //   error,
+  //   isError,
+  // } = useQuery({
+  //   queryKey: ["jobs-data"],
+  //   queryFn: () =>
+  //     axios.get<IJobsResponseProps>("http://localhost:3000/api/jobs"),
+  //   select(data) {
+  //     return data.data;
+  //   },
+  //   retry: 1,
+  // });
 
   return (
     <div className="w-[min(100%,40rem)] flex flex-col items-center">
@@ -40,11 +40,11 @@ const SearchJob = () => {
         <Search className="w-[4rem] absolute right-2 top-[50%] translate-y-[-50%] text-background" />
       </div>
       <div className=" w-full bg-foreground h-[20rem] rounded-bl-md rounded-br-md">
-        {isLoading && !isError && (
+        {/* {isLoading && !isError && (
           <Spinner className=" text-background text-5xl" />
-        )}
+        )} */}
 
-        {jobsData &&
+        {/* {jobsData &&
           !isLoading &&
           jobsData.data?.slice(0, 3).map((job) => {
             return (
@@ -72,7 +72,7 @@ const SearchJob = () => {
                 </div>
               </div>
             );
-          })}
+          })} */}
       </div>
     </div>
   );
