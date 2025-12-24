@@ -8,32 +8,42 @@ import {
 import { InputWithControl } from "../ui/input-with-control";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
-
+import { Path } from "react-hook-form";
+import { ResumeOutputType } from "../../schema";
+export const socialLinkFields = [
+  {
+    labelContent: "Github",
+    name: "socialLinks.github",
+  },
+  {
+    labelContent: "Linkedin",
+    name: "socialLinks.linkedin",
+  },
+  {
+    labelContent: "Twitter",
+    name: "socialLinks.twitter",
+  },
+  {
+    labelContent: "Website",
+    name: "socialLinks.website",
+  },
+];
 export function SocialLinks({ control }: IControlProps) {
   return (
     <AccordionItem value="socials">
       <AccordionTrigger>Website & Social Links</AccordionTrigger>
       <AccordionContent className=" flex flex-col gap-6">
-        <InputWithControl
-          labelContent="Github"
-          name="socialLinks.github"
-          control={control}
-        />
-        <InputWithControl
-          labelContent="Linkedin"
-          name="socialLinks.linkedin"
-          control={control}
-        />
-        <InputWithControl
-          labelContent="Twitter"
-          name="socialLinks.twitter"
-          control={control}
-        />
-        <InputWithControl
-          labelContent="Website"
-          name="socialLinks.website"
-          control={control}
-        />
+        {socialLinkFields.map((social, index) => {
+          return (
+            <InputWithControl
+              key={index}
+              labelContent={social.labelContent}
+              name={social.name as Path<ResumeOutputType>}
+              control={control}
+            />
+          );
+        })}
+
         <Button
           onClick={(ev) => {
             ev.preventDefault();

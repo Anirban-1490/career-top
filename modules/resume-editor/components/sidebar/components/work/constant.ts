@@ -1,9 +1,11 @@
+import { getID } from "@/lib/get-id";
+
 export const DEFAULT_WORK_EXPERIENCE = {
-  id: crypto.randomUUID(),
-  company: "Mintra LTD",
-  role: "Junior Frontend Developer",
-  location: "bangalore",
-  isRemote: true,
+  id: getID(),
+  company: "",
+  role: "",
+  location: "",
+  isRemote: false,
   startDate: null,
   endDate: null,
   currentlyWorking: true,
