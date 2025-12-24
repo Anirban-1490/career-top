@@ -4,12 +4,14 @@ import React from "react";
 import { Controller } from "react-hook-form";
 import dayjs from "dayjs";
 import { IInputWithControlProps } from "../work/type";
+import { DatePickerProps } from "antd";
 
 export function DatepickerWithControl({
   control,
   name,
   labelContent,
-}: IInputWithControlProps) {
+  ...props
+}: IInputWithControlProps & DatePickerProps) {
   return (
     <Controller
       control={control}
@@ -17,6 +19,7 @@ export function DatepickerWithControl({
       render={({ field }) => {
         return (
           <GenericDatePicker
+            {...props}
             {...(field.value ? { value: dayjs(field.value as Date) } : {})}
             onChange={(date) => {
               field.onChange(dayjs(date as dayjs.Dayjs).toDate());
