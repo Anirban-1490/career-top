@@ -5,7 +5,7 @@ export const DEFAULT_PROJECTS = {
   title: "Project",
   isCurrentlyWorking: false,
   description: "",
-  url: "",
+
   startDate: null,
   endDate: null,
 };

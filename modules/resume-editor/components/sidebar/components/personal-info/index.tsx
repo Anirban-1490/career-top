@@ -9,6 +9,9 @@ import {
 } from "@/components/ui/accordion";
 import { Input } from "@/components/ui/input";
 import { IControlProps } from "../../type";
+import { InputWithControl } from "../ui/input-with-control";
+import { Button } from "@/components/ui/button";
+import { Check } from "lucide-react";
 
 export const personalInformationFields = [
   {
@@ -55,25 +58,21 @@ export function PersonalInfo({ control }: IControlProps) {
       <AccordionContent className=" grid grid-cols-2 gap-3 gap-y-6">
         {personalInformationFields.map((field) => {
           return (
-            <Controller
-              name={field.name as Path<ResumeOutputType>}
+            <InputWithControl
               key={field.id}
+              labelContent={field.labelContent}
+              name={field.name as Path<ResumeOutputType>}
               control={control}
-              render={() => {
-                return (
-                  <Input
-                    parentProps={{
-                      className: field.parentProps?.className || "",
-                    }}
-                    type={field.type}
-                    labelContent={field.labelContent}
-                    className="border border-input-outline bg-background"
-                  />
-                );
-              }}
+              type={field.type}
             />
           );
         })}
+        <Button
+          type="submit"
+          className=" w-full capitalize  text-sm col-span-2"
+        >
+          <Check /> done
+        </Button>
       </AccordionContent>
     </AccordionItem>
   );

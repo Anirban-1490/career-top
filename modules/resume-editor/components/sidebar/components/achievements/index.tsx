@@ -68,7 +68,7 @@ export function Achievements({ control }: IControlProps) {
                           name={`achievements.${index}.description`}
                         />
                         <Button
-                          onClick={(ev) => {}}
+                          type="submit"
                           className=" w-full capitalize  text-sm col-span-2"
                         >
                           <Check /> done

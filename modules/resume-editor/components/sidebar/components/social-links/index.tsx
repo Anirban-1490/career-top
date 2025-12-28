@@ -45,9 +45,7 @@ export function SocialLinks({ control }: IControlProps) {
         })}
 
         <Button
-          onClick={(ev) => {
-            ev.preventDefault();
-          }}
+          type="submit"
           className=" w-full capitalize  text-sm col-span-2"
         >
           <Check /> done

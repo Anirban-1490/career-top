@@ -119,7 +119,7 @@ export function WorkInfo({ control }: IControlProps) {
                         />
 
                         <Button
-                          onClick={(ev) => {}}
+                          type="submit"
                           className=" w-full capitalize  text-sm col-span-2"
                         >
                           <Check /> done

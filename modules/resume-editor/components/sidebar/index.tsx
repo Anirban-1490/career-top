@@ -1,9 +1,7 @@
 "use client";
 
-import React from "react";
-import { useForm } from "react-hook-form";
-import { ResumeOutputType, resumeSchema } from "./schema";
-import { zodResolver } from "@hookform/resolvers/zod";
+import React, { JSX } from "react";
+
 import { PersonalInfo } from "./components/personal-info";
 import { Accordion } from "@/components/ui/accordion";
 import { WorkInfo } from "./components/work";
@@ -12,6 +10,8 @@ import { Projects } from "./components/projects";
 import { Skills } from "./components/skills";
 import { Education } from "./components/education";
 import { Achievements } from "./components/achievements";
+import { IControlProps } from "./type";
+import { addResume } from "../../actions/save-resume";
 
 const sideBarContent = [
   PersonalInfo,
@@ -23,26 +23,17 @@ const sideBarContent = [
   Achievements,
 ];
 
-export function EditorSidebar() {
-  const { handleSubmit, register, reset, watch, control } =
-    useForm<ResumeOutputType>({
-      resolver: zodResolver(resumeSchema),
-    });
+interface IEditorSidebarProps {
+  children: (
+    sideBarContent: (({ control }: IControlProps) => JSX.Element)[]
+  ) => React.ReactNode;
+}
 
+export function EditorSidebar({ children }: IEditorSidebarProps) {
   return (
     <aside className="basis-[30%] sticky left-0 top-0 overflow-hidden">
       <div className=" h-full  flex flex-col gap-8 p-3 pb-7 overflow-auto">
-        <form>
-          <Accordion type="single" className="flex flex-col gap-5" collapsible>
-            {sideBarContent.map((Content, index) => {
-              return (
-                <React.Fragment key={index}>
-                  <Content control={control} />
-                </React.Fragment>
-              );
-            })}
-          </Accordion>
-        </form>
+        {children(sideBarContent)}
       </div>
     </aside>
   );
