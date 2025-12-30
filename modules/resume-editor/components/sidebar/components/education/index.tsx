@@ -14,8 +14,9 @@ import { CheckboxWithControl } from "../ui/checkbox-with-control";
 import { WYSIWYGWithControl } from "../ui/wysiwyg-with-control";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
+import ContainerWithSubmit from "@/components/ui/container-with-submit";
 
-export function Education({ control }: IControlProps) {
+export function Education({ control, isFormPending }: IControlProps) {
   return (
     <AccordionItem value="education">
       <AccordionTrigger>Education</AccordionTrigger>
@@ -43,54 +44,51 @@ export function Education({ control }: IControlProps) {
                           : `Education #${index + 1}`}
                       </AccordionTrigger>
                       <AccordionContent className="grid grid-cols-2 gap-y-8 gap-x-3">
-                        <InputWithControl
-                          name={`education.${index}.degree`}
-                          control={control}
-                          labelContent={"Degree"}
-                        />
-                        <InputWithControl
-                          name={`education.${index}.institute`}
-                          control={control}
-                          labelContent={"Institute"}
-                        />
-                        <InputWithControl
-                          name={`education.${index}.location`}
-                          control={control}
-                          labelContent={"Location"}
-                        />
+                        <ContainerWithSubmit isFormPending={isFormPending}>
+                          <>
+                            <InputWithControl
+                              name={`education.${index}.degree`}
+                              control={control}
+                              labelContent={"Degree"}
+                            />
+                            <InputWithControl
+                              name={`education.${index}.institute`}
+                              control={control}
+                              labelContent={"Institute"}
+                            />
+                            <InputWithControl
+                              name={`education.${index}.location`}
+                              control={control}
+                              labelContent={"Location"}
+                            />
 
-                        <DatepickerWithControl
-                          name={`education.${index}.startDate`}
-                          control={control}
-                          labelContent="Start Date"
-                        />
-                        <DatepickerWithControl
-                          name={`education.${index}.endDate`}
-                          control={control}
-                          labelContent="End Date"
-                        />
+                            <DatepickerWithControl
+                              name={`education.${index}.startDate`}
+                              control={control}
+                              labelContent="Start Date"
+                            />
+                            <DatepickerWithControl
+                              name={`education.${index}.endDate`}
+                              control={control}
+                              labelContent="End Date"
+                            />
 
-                        <CheckboxWithControl
-                          name={`education.${index}.isCurrentlyStudying`}
-                          control={control}
-                          labelContent={
-                            "I am currently studying in this institute"
-                          }
-                          id={`${education.id}`}
-                        />
+                            <CheckboxWithControl
+                              name={`education.${index}.isCurrentlyStudying`}
+                              control={control}
+                              labelContent={
+                                "I am currently studying in this institute"
+                              }
+                              id={`${education.id}`}
+                            />
 
-                        <WYSIWYGWithControl
-                          labelContent="Description"
-                          control={control}
-                          name={`education.${index}.description`}
-                        />
-
-                        <Button
-                          type="submit"
-                          className=" w-full capitalize  text-sm col-span-2"
-                        >
-                          <Check /> done
-                        </Button>
+                            <WYSIWYGWithControl
+                              labelContent="Description"
+                              control={control}
+                              name={`education.${index}.description`}
+                            />
+                          </>
+                        </ContainerWithSubmit>
                       </AccordionContent>
                     </AccordionItem>
                   );

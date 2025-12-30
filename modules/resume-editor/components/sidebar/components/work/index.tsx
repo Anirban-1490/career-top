@@ -5,12 +5,11 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { IControlProps } from "../../type";
-import { Button } from "@/components/ui/button";
-import { Check } from "lucide-react";
 import { DEFAULT_WORK_EXPERIENCE } from "./constant";
 import dynamic from "next/dynamic";
 import { AddEntry } from "../ui/add-entry";
 import { useWatch } from "react-hook-form";
+import ContainerWithSubmit from "@/components/ui/container-with-submit";
 
 const InputWithControl = dynamic(() =>
   import("../ui/input-with-control").then((value) => value.InputWithControl)
@@ -31,7 +30,7 @@ const WYSIWYGWithControl = dynamic(() =>
   import("../ui/wysiwyg-with-control").then((value) => value.WYSIWYGWithControl)
 );
 
-export function WorkInfo({ control }: IControlProps) {
+export function WorkInfo({ control, isFormPending }: IControlProps) {
   const watch = useWatch({
     control: control,
   });
@@ -70,60 +69,57 @@ export function WorkInfo({ control }: IControlProps) {
                         )}
                       </AccordionTrigger>
                       <AccordionContent className="grid grid-cols-2 gap-y-8 gap-x-3">
-                        <InputWithControl
-                          name={`workExperience.${index}.role`}
-                          control={control}
-                          labelContent={"Job Title"}
-                        />
-                        <InputWithControl
-                          name={`workExperience.${index}.company`}
-                          control={control}
-                          labelContent={"Company Name"}
-                        />
-                        <InputWithControl
-                          name={`workExperience.${index}.location`}
-                          control={control}
-                          labelContent={"Location"}
-                        />
-                        <DatepickerWithControl
-                          name={`workExperience.${index}.startDate`}
-                          control={control}
-                          labelContent="Start Date"
-                        />
-                        <DatepickerWithControl
-                          name={`workExperience.${index}.endDate`}
-                          control={control}
-                          labelContent="End Date"
-                          disabled={Boolean(
-                            watch.workExperience?.[index]?.currentlyWorking
-                          )}
-                        />
+                        <ContainerWithSubmit isFormPending={isFormPending}>
+                          <>
+                            <InputWithControl
+                              name={`workExperience.${index}.role`}
+                              control={control}
+                              labelContent={"Job Title"}
+                            />
+                            <InputWithControl
+                              name={`workExperience.${index}.company`}
+                              control={control}
+                              labelContent={"Company Name"}
+                            />
+                            <InputWithControl
+                              name={`workExperience.${index}.location`}
+                              control={control}
+                              labelContent={"Location"}
+                            />
+                            <DatepickerWithControl
+                              name={`workExperience.${index}.startDate`}
+                              control={control}
+                              labelContent="Start Date"
+                            />
+                            <DatepickerWithControl
+                              name={`workExperience.${index}.endDate`}
+                              control={control}
+                              labelContent="End Date"
+                              disabled={Boolean(
+                                watch.workExperience?.[index]?.currentlyWorking
+                              )}
+                            />
 
-                        <CheckboxWithControl
-                          name={`workExperience.${index}.isRemote`}
-                          control={control}
-                          labelContent={"Remote Position"}
-                          id="remote"
-                        />
+                            <CheckboxWithControl
+                              name={`workExperience.${index}.isRemote`}
+                              control={control}
+                              labelContent={"Remote Position"}
+                              id="remote"
+                            />
 
-                        <CheckboxWithControl
-                          name={`workExperience.${index}.currentlyWorking`}
-                          control={control}
-                          labelContent={"I am currently working here"}
-                          id={experience.id}
-                        />
-                        <WYSIWYGWithControl
-                          labelContent="Desciption"
-                          control={control}
-                          name={`workExperience.${index}.description`}
-                        />
-
-                        <Button
-                          type="submit"
-                          className=" w-full capitalize  text-sm col-span-2"
-                        >
-                          <Check /> done
-                        </Button>
+                            <CheckboxWithControl
+                              name={`workExperience.${index}.currentlyWorking`}
+                              control={control}
+                              labelContent={"I am currently working here"}
+                              id={experience.id}
+                            />
+                            <WYSIWYGWithControl
+                              labelContent="Desciption"
+                              control={control}
+                              name={`workExperience.${index}.description`}
+                            />
+                          </>
+                        </ContainerWithSubmit>
                       </AccordionContent>
                     </AccordionItem>
                   );

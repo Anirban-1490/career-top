@@ -14,8 +14,9 @@ import { CheckboxWithControl } from "../ui/checkbox-with-control";
 import { WYSIWYGWithControl } from "../ui/wysiwyg-with-control";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
+import ContainerWithSubmit from "@/components/ui/container-with-submit";
 
-export function Projects({ control }: IControlProps) {
+export function Projects({ control, isFormPending }: IControlProps) {
   return (
     <AccordionItem value="projects">
       <AccordionTrigger>Projects</AccordionTrigger>
@@ -41,47 +42,46 @@ export function Projects({ control }: IControlProps) {
                         {project.title + ` #${index + 1}`}
                       </AccordionTrigger>
                       <AccordionContent className="grid grid-cols-2 gap-y-8 gap-x-3">
-                        <InputWithControl
-                          name={`projects.${index}.title`}
-                          control={control}
-                          labelContent={"Project Title"}
-                        />
-                        <InputWithControl
-                          name={`projects.${index}.url`}
-                          control={control}
-                          labelContent={"Project URL"}
-                        />
+                        <ContainerWithSubmit isFormPending={isFormPending}>
+                          <>
+                            <InputWithControl
+                              name={`projects.${index}.title`}
+                              control={control}
+                              labelContent={"Project Title"}
+                            />
+                            <InputWithControl
+                              name={`projects.${index}.url`}
+                              control={control}
+                              labelContent={"Project URL"}
+                            />
 
-                        <DatepickerWithControl
-                          name={`projects.${index}.startDate`}
-                          control={control}
-                          labelContent="Start Date"
-                        />
-                        <DatepickerWithControl
-                          name={`projects.${index}.endDate`}
-                          control={control}
-                          labelContent="End Date"
-                        />
+                            <DatepickerWithControl
+                              name={`projects.${index}.startDate`}
+                              control={control}
+                              labelContent="Start Date"
+                            />
+                            <DatepickerWithControl
+                              name={`projects.${index}.endDate`}
+                              control={control}
+                              labelContent="End Date"
+                            />
 
-                        <CheckboxWithControl
-                          name={`projects.${index}.isCurrentlyWorking`}
-                          control={control}
-                          labelContent={"I am currently working on the project"}
-                          id={`${project.id}`}
-                        />
+                            <CheckboxWithControl
+                              name={`projects.${index}.isCurrentlyWorking`}
+                              control={control}
+                              labelContent={
+                                "I am currently working on the project"
+                              }
+                              id={`${project.id}`}
+                            />
 
-                        <WYSIWYGWithControl
-                          labelContent="Desciption"
-                          control={control}
-                          name={`projects.${index}.description`}
-                        />
-
-                        <Button
-                          type="submit"
-                          className=" w-full capitalize  text-sm col-span-2"
-                        >
-                          <Check /> done
-                        </Button>
+                            <WYSIWYGWithControl
+                              labelContent="Desciption"
+                              control={control}
+                              name={`projects.${index}.description`}
+                            />
+                          </>
+                        </ContainerWithSubmit>
                       </AccordionContent>
                     </AccordionItem>
                   );

@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import { Path } from "react-hook-form";
 import { ResumeOutputType } from "../../schema";
+import ContainerWithSubmit from "@/components/ui/container-with-submit";
 export const socialLinkFields = [
   {
     labelContent: "Github",
@@ -28,28 +29,23 @@ export const socialLinkFields = [
     name: "socialLinks.website",
   },
 ];
-export function SocialLinks({ control }: IControlProps) {
+export function SocialLinks({ control, isFormPending }: IControlProps) {
   return (
     <AccordionItem value="socials">
       <AccordionTrigger>Website & Social Links</AccordionTrigger>
       <AccordionContent className=" flex flex-col gap-6">
-        {socialLinkFields.map((social, index) => {
-          return (
-            <InputWithControl
-              key={index}
-              labelContent={social.labelContent}
-              name={social.name as Path<ResumeOutputType>}
-              control={control}
-            />
-          );
-        })}
-
-        <Button
-          type="submit"
-          className=" w-full capitalize  text-sm col-span-2"
-        >
-          <Check /> done
-        </Button>
+        <ContainerWithSubmit isFormPending={isFormPending}>
+          {socialLinkFields.map((social, index) => {
+            return (
+              <InputWithControl
+                key={index}
+                labelContent={social.labelContent}
+                name={social.name as Path<ResumeOutputType>}
+                control={control}
+              />
+            );
+          })}
+        </ContainerWithSubmit>
       </AccordionContent>
     </AccordionItem>
   );

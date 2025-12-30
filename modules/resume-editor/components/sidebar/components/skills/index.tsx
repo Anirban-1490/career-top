@@ -10,8 +10,9 @@ import { DEFAULT_SKILL } from "./constant";
 import { Button } from "@/components/ui/button";
 import { Check, Edit } from "lucide-react";
 import { InputWithControl } from "../ui/input-with-control";
+import { Spinner } from "@/components/ui/spinner";
 
-export function Skills({ control }: IControlProps) {
+export function Skills({ control, isFormPending }: IControlProps) {
   const [editSkills, setEditSkills] = useState<Set<string>>(new Set());
   console.log(editSkills);
 
@@ -49,6 +50,11 @@ export function Skills({ control }: IControlProps) {
                         onClick={(ev) => {
                           ev.preventDefault();
 
+                          if (isFormPending) {
+                            ev.stopPropagation();
+                            return;
+                          }
+
                           setEditSkills((prev) => {
                             const next = new Set(prev);
                             next.has(skill.id)
@@ -57,9 +63,12 @@ export function Skills({ control }: IControlProps) {
                             return next;
                           });
                         }}
+                        type="submit"
                         variant={"ghost"}
+                        disabled={isFormPending}
                       >
-                        {isEditing ? <Check /> : <Edit />}
+                        {isFormPending && <Spinner />}
+                        {isEditing && !isFormPending ? <Check /> : <Edit />}
                       </Button>
                     </div>
                   );

@@ -13,8 +13,9 @@ import { DatepickerWithControl } from "../ui/datepicker-with-control";
 import { WYSIWYGWithControl } from "../ui/wysiwyg-with-control";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
+import ContainerWithSubmit from "@/components/ui/container-with-submit";
 
-export function Achievements({ control }: IControlProps) {
+export function Achievements({ control, isFormPending }: IControlProps) {
   return (
     <AccordionItem value="achievements">
       <AccordionTrigger>Achievements</AccordionTrigger>
@@ -42,37 +43,33 @@ export function Achievements({ control }: IControlProps) {
                           : `Achievements #${index + 1}`}
                       </AccordionTrigger>
                       <AccordionContent className="flex flex-col gap-8">
-                        <InputWithControl
-                          name={`achievements.${index}.achievementName`}
-                          control={control}
-                          labelContent={"Achievement Name"}
-                        />
-                        <InputWithControl
-                          name={`achievements.${index}.issuerName`}
-                          control={control}
-                          labelContent={"Issuer Name"}
-                        />
-                        <InputWithControl
-                          name={`achievements.${index}.url`}
-                          control={control}
-                          labelContent={"URL"}
-                        />
-                        <DatepickerWithControl
-                          name={`achievements.${index}.date`}
-                          control={control}
-                          labelContent="Date"
-                        />
-                        <WYSIWYGWithControl
-                          labelContent="Description"
-                          control={control}
-                          name={`achievements.${index}.description`}
-                        />
-                        <Button
-                          type="submit"
-                          className=" w-full capitalize  text-sm col-span-2"
-                        >
-                          <Check /> done
-                        </Button>
+                        <ContainerWithSubmit isFormPending={isFormPending}>
+                          <InputWithControl
+                            name={`achievements.${index}.achievementName`}
+                            control={control}
+                            labelContent={"Achievement Name"}
+                          />
+                          <InputWithControl
+                            name={`achievements.${index}.issuerName`}
+                            control={control}
+                            labelContent={"Issuer Name"}
+                          />
+                          <InputWithControl
+                            name={`achievements.${index}.url`}
+                            control={control}
+                            labelContent={"URL"}
+                          />
+                          <DatepickerWithControl
+                            name={`achievements.${index}.date`}
+                            control={control}
+                            labelContent="Date"
+                          />
+                          <WYSIWYGWithControl
+                            labelContent="Description"
+                            control={control}
+                            name={`achievements.${index}.description`}
+                          />
+                        </ContainerWithSubmit>
                       </AccordionContent>
                     </AccordionItem>
                   );
