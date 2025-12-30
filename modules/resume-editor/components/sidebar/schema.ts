@@ -24,6 +24,7 @@ export const resumeSchema = z.object({
   achievements: z.array(achievementsSchema).optional(),
   id: z.string().optional(),
   createdAt: z.string().optional(),
+  name: z.string().optional(),
 });
 
 export type ResumeOutputType = z.infer<typeof resumeSchema>;
