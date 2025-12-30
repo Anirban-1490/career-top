@@ -20,7 +20,7 @@ export async function proxy(request: NextRequest) {
   }
 
   try {
-    await auth.verifySessionCookie(sessionCookie, true);
+    await auth.verifySessionCookie(sessionCookie);
 
     if (!isProtectedRoute) {
       return NextResponse.redirect(new URL("/dashboard", request.url));
@@ -28,7 +28,10 @@ export async function proxy(request: NextRequest) {
 
     return;
   } catch (error) {
-    return NextResponse.redirect(new URL("/sign-up", request.url));
+    if (isProtectedRoute) {
+      return NextResponse.redirect(new URL("/sign-up", request.url));
+    }
+    return;
   }
 }
 
