@@ -1,10 +1,9 @@
 "use client";
 
-import React, { use, useState } from "react";
+import React, { use } from "react";
 import { EmptyContent } from "../empty-content";
 import { useRouter } from "next/navigation";
-import { UserProfile } from "@/action/user-profile";
-import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
+
 import { addResume } from "@/action/save-resume";
 import { getID } from "@/lib/get-id";
 import { ResumeOutputType } from "@/modules/resume-editor/components/sidebar/schema";
@@ -13,16 +12,27 @@ import { Edit } from "lucide-react";
 import dayjs from "dayjs";
 
 interface IALLResumeProps {
-  resumes: ResumeOutputType[];
+  resumesPromise: Promise<
+    | {
+        docs: ResumeOutputType[];
+        error: null;
+      }
+    | {
+        error: any;
+        docs?: undefined;
+      }
+  >;
   userId: string;
 }
 
-export function AllResume({ resumes, userId }: IALLResumeProps) {
+export function AllResume({ resumesPromise, userId }: IALLResumeProps) {
+  const { docs: resumes, error } = use(resumesPromise);
+
   const router = useRouter();
 
   return (
     <div className="w-full h-full">
-      {!resumes.length && (
+      {!resumes?.length && (
         <EmptyContent
           title="No Resumes "
           description="Get started on crafting your first resume to kickstart your career journey"
@@ -43,7 +53,7 @@ export function AllResume({ resumes, userId }: IALLResumeProps) {
           }}
         />
       )}
-      {resumes.length > 0 && (
+      {resumes && resumes.length > 0 && (
         <>
           <h4 className=" text-3xl font-semibold mb-10">All Resumes</h4>
           <div className=" flex gap-10 flex-wrap">
