@@ -6,8 +6,8 @@ export const workInfoSchema = z.object({
   role: z.string().min(1, "Role is required"),
   location: z.string().optional(),
   isRemote: z.boolean().optional(),
-  startDate: z.date().nullable(),
-  endDate: z.date().nullable(),
+  startDate: z.string().nullable(),
+  endDate: z.string().nullable(),
   currentlyWorking: z.boolean().optional(),
   description: z.string().min(1).min(1, "Add at least one responsibility"),
 });

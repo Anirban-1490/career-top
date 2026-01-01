@@ -20,9 +20,9 @@ export function DatepickerWithControl({
         return (
           <GenericDatePicker
             {...props}
-            {...(field.value ? { value: dayjs(field.value as Date) } : {})}
+            {...(field.value ? { value: dayjs(field.value as string) } : {})}
             onChange={(date) => {
-              field.onChange(dayjs(date as dayjs.Dayjs).toDate());
+              field.onChange(dayjs(date as dayjs.Dayjs).toString());
             }}
             labelContent={labelContent}
           />

@@ -5,6 +5,6 @@ export const achievementsSchema = z.object({
   achievementName: z.string(),
   issuerName: z.string(),
   url: z.url().nullable(),
-  date: z.date().nullable(),
+  date: z.string().nullable(),
   description: z.string().optional(),
 });
