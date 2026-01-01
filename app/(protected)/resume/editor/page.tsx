@@ -13,12 +13,10 @@ export default async function ResumeEditor({
   const dataPromise = getResume(user?.uid as string, id as string);
 
   return (
-    <Suspense fallback={"loading...."}>
-      <Editor
-        dataPromise={dataPromise}
-        id={id as string}
-        userId={user?.uid as string}
-      />
-    </Suspense>
+    <Editor
+      dataPromise={dataPromise}
+      id={id as string}
+      userId={user?.uid as string}
+    />
   );
 }

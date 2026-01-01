@@ -1,3 +1,4 @@
+import { ContainerWithSpinner } from "@/components/common/container-with-spinner";
 import { user } from "@/lib/user";
 import { getResumes } from "@/modules/dashboard/action/get-resumes";
 import dynamic from "next/dynamic";
@@ -14,12 +15,10 @@ export default async function Resume() {
 
   return (
     <div className="w-full h-full">
-      <Suspense fallback={"loading..."}>
-        <UserResumes
-          userId={user?.uid as string}
-          resumesPromise={resumesPromise}
-        />
-      </Suspense>
+      <UserResumes
+        userId={user?.uid as string}
+        resumesPromise={resumesPromise}
+      />
     </div>
   );
 }
