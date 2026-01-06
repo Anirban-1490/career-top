@@ -1,8 +1,12 @@
 import { ContainerWithSpinner } from "@/components/common/container-with-spinner";
 import { user } from "@/lib/user";
 import { getResumes } from "@/modules/dashboard/action/get-resumes";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
 import dynamic from "next/dynamic";
-import { Suspense } from "react";
 
 const UserResumes = dynamic(() =>
   import("@/modules/dashboard/components/resume").then(
@@ -11,14 +15,18 @@ const UserResumes = dynamic(() =>
 );
 
 export default async function Resume() {
-  const resumesPromise = getResumes(user?.uid as string);
+  // const resumesPromise = getResumes(user?.uid as string);
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery({
+    queryKey: ["resumes", user?.uid as string],
+    queryFn: () => getResumes(user?.uid as string),
+  });
 
   return (
-    <div className="w-full h-full">
-      <UserResumes
-        userId={user?.uid as string}
-        resumesPromise={resumesPromise}
-      />
-    </div>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <div className="w-full h-full">
+        <UserResumes userId={user?.uid as string} />
+      </div>
+    </HydrationBoundary>
   );
 }

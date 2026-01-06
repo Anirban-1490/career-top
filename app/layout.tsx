@@ -3,6 +3,7 @@ import { Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Provider } from "./provider";
 import { Navbar } from "@/modules/home/components/navbar";
+import { Toaster } from "sonner";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -28,7 +29,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} ${geistMono.variable} antialiased`}>
         <Provider>
-          <main className=" min-h-dvh flex flex-col">{children}</main>
+          <main className=" min-h-dvh flex flex-col">
+            {children}
+            <Toaster richColors position="bottom-right" expand />
+          </main>
         </Provider>
       </body>
     </html>
