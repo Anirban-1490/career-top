@@ -51,6 +51,7 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-input-outline: var(--input-outline);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -97,7 +98,7 @@ body {
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
-
+  --input-outline: oklch(37.909% 0.00004 271.152);
   --gradient-primary: linear-gradient(to left, var(--color-neon-red), var(--color-neon-orange), var(--color-neon-yellow))
 }
 
@@ -168,6 +169,40 @@ body {
   top: 50%;
   translate: -50% -50%;
   @apply rounded-xl
+}
+
+
+.rsw-toolbar {
+  background-color: var(--background) !important;
+  border-color: var(--input-outline) !important;
+
+}
+
+.rsw-toolbar .rsw-btn {
+  color: white !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent !important;
+}
+
+.rsw-toolbar .rsw-btn:hover {
+  color: var(--color-neon-red) !important;
+
+}
+
+.rsw-ce ul {
+  padding: 40px !important;
+  list-style-type: initial;
+}
+
+.rsw-ce:focus {
+  outline: none !important;
+}
+
+.rsw-btn[data-active=true] {
+  color: var(--color-neon-red) !important;
+
 }
 
 @keyframes scroll-effect {

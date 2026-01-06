@@ -16,7 +16,17 @@ const nextConfig: NextConfig = {
         pathname:
           "/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        port: "",
+        // pathname:
+        //   "/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png",
+      },
     ],
+  },
+  experimental: {
+    optimizePackageImports: ["lucide-react", "@ant-design/icons"],
   },
   /* config options here */
 };
