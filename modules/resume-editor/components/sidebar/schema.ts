@@ -7,8 +7,8 @@ import { educationSchema } from "./components/education/schema";
 import { achievementsSchema } from "./components/achievements/schema";
 
 export const resumeSchema = z.object({
-  personalInformation: personalInfoSchema.optional(),
-  socialLinks: socialLinkSchema.optional(),
+  personalInformation: personalInfoSchema.and(socialLinkSchema).optional(),
+  // socialLinks: socialLinkSchema.optional(),
   //   professionalSummary: z.string().max(1000).optional(),
   workExperience: z.array(workInfoSchema).optional(),
   skills: z

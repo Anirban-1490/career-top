@@ -14,19 +14,19 @@ import ContainerWithSubmit from "@/components/ui/container-with-submit";
 export const socialLinkFields = [
   {
     labelContent: "Github",
-    name: "socialLinks.github",
+    name: "personalInformation.github",
   },
   {
     labelContent: "Linkedin",
-    name: "socialLinks.linkedin",
+    name: "personalInformation.linkedin",
   },
   {
     labelContent: "Twitter",
-    name: "socialLinks.twitter",
+    name: "personalInformation.twitter",
   },
   {
     labelContent: "Website",
-    name: "socialLinks.website",
+    name: "personalInformation.website",
   },
 ];
 export function SocialLinks({ control, isFormPending }: IControlProps) {
