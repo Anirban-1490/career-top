@@ -14,7 +14,6 @@ import { Spinner } from "@/components/ui/spinner";
 
 export function Skills({ control, isFormPending }: IControlProps) {
   const [editSkills, setEditSkills] = useState<Set<string>>(new Set());
-  console.log(editSkills);
 
   return (
     <AccordionItem value="skills">
@@ -26,53 +25,45 @@ export function Skills({ control, isFormPending }: IControlProps) {
           control={control}
           noEntryHeader="No skills added"
           noEntryDescription="Please add some more skills for a better resume"
+          clean
         >
-          {(fields) => {
+          {(skill, index) => {
+            const isEditing = editSkills.has(skill.id);
             return (
-              <div className="">
-                {fields.map((skill, index) => {
-                  const isEditing = editSkills.has(skill.id);
-                  return (
-                    <div
-                      className=" border-b border-ring w-full py-5 flex justify-between"
-                      key={skill.id}
-                    >
-                      <InputWithControl
-                        control={control}
-                        name={`skills.${index}.label`}
-                        parentProps={{ className: "w-full" }}
-                        disabled={!isEditing}
-                        className={`border-0 ${
-                          isEditing ? "bg-secondary" : "bg-transparent"
-                        }  disabled:opacity-100`}
-                      />
-                      <Button
-                        onClick={(ev) => {
-                          ev.preventDefault();
+              <div className=" border-b border-ring w-full py-5 flex justify-between">
+                <InputWithControl
+                  control={control}
+                  name={`skills.${index}.label`}
+                  parentProps={{ className: "w-full" }}
+                  disabled={!isEditing}
+                  className={`border-0 ${
+                    isEditing ? "bg-secondary" : "bg-transparent"
+                  }  disabled:opacity-100`}
+                />
+                <Button
+                  onClick={(ev) => {
+                    ev.preventDefault();
 
-                          if (isFormPending) {
-                            ev.stopPropagation();
-                            return;
-                          }
+                    if (isFormPending) {
+                      ev.stopPropagation();
+                      return;
+                    }
 
-                          setEditSkills((prev) => {
-                            const next = new Set(prev);
-                            next.has(skill.id)
-                              ? next.delete(skill.id)
-                              : next.add(skill.id);
-                            return next;
-                          });
-                        }}
-                        type="submit"
-                        variant={"ghost"}
-                        disabled={isFormPending}
-                      >
-                        {isFormPending && <Spinner />}
-                        {isEditing && !isFormPending ? <Check /> : <Edit />}
-                      </Button>
-                    </div>
-                  );
-                })}
+                    setEditSkills((prev) => {
+                      const next = new Set(prev);
+                      next.has(skill.id)
+                        ? next.delete(skill.id)
+                        : next.add(skill.id);
+                      return next;
+                    });
+                  }}
+                  type="submit"
+                  variant={"ghost"}
+                  disabled={isFormPending}
+                >
+                  {isFormPending && <Spinner />}
+                  {isEditing && !isFormPending ? <Check /> : <Edit />}
+                </Button>
               </div>
             );
           }}
