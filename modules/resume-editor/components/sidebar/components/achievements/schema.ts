@@ -1,7 +1,7 @@
 import z from "zod";
 
 export const achievementsSchema = z.object({
-  ID: z.string(),
+  id: z.string(),
   achievementName: z.string(),
   issuerName: z.string(),
   url: z.url().nullable(),

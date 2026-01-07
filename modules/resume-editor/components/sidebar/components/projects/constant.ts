@@ -1,8 +1,5 @@
-import { getID } from "@/lib/get-id";
-
 export const DEFAULT_PROJECTS = {
-  id: getID(),
-  title: "Project",
+  title: "",
   isCurrentlyWorking: false,
   description: "",
 
