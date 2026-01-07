@@ -15,9 +15,10 @@ import { CheckboxWithControl } from "../ui/checkbox-with-control";
 import { WYSIWYGWithControl } from "../ui/wysiwyg-with-control";
 
 export function WorkInfo({ control, ...props }: IControlProps) {
-  const watch = useWatch({
-    control: control,
-  });
+  // const workExperience = useWatch({
+  //   control: control,
+  //   name: "workExperience",
+  // });
 
   return (
     <AccordionItem value="work-info">
@@ -33,10 +34,10 @@ export function WorkInfo({ control, ...props }: IControlProps) {
           accordionTriggerContent={(field) => {
             return (
               field.role && (
-                <div className="flex items-center gap-2 flex-grow">
+                <>
                   {field.role} -
                   <span className=" text-neon-red">{field.company}</span>
-                </div>
+                </>
               )
             );
           }}
@@ -69,9 +70,7 @@ export function WorkInfo({ control, ...props }: IControlProps) {
                   name={`workExperience.${index}.endDate`}
                   control={control}
                   labelContent="End Date"
-                  disabled={Boolean(
-                    watch.workExperience?.[index]?.currentlyWorking
-                  )}
+                  disabled={Boolean(experience?.currentlyWorking)}
                 />
 
                 <CheckboxWithControl

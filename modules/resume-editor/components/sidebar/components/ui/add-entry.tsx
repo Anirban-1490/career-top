@@ -19,6 +19,8 @@ import {
 import { deleteResumeSection } from "@/action/delete-resume";
 import ContainerWithSubmit from "@/components/ui/container-with-submit";
 import { toast } from "sonner";
+import { getID } from "@/lib/get-id";
+import { AccordionSingleProps } from "@radix-ui/react-accordion";
 
 interface IAddEntryProps<T extends FieldArrayPath<ResumeOutputType>>
   extends IControlProps {
@@ -34,6 +36,7 @@ interface IAddEntryProps<T extends FieldArrayPath<ResumeOutputType>>
   id?: string;
   userId?: string;
   clean?: boolean;
+  parentProps?: Omit<AccordionSingleProps, "type">;
   children: (
     field: FieldArrayWithId<ResumeOutputType, T, "id">,
     index: number
@@ -52,6 +55,7 @@ export function AddEntry<T extends FieldArrayPath<ResumeOutputType>>({
   id,
   userId,
   clean = false,
+  parentProps,
   children,
 }: IAddEntryProps<T>) {
   const { append, fields, remove, replace } = useFieldArray({
@@ -59,12 +63,12 @@ export function AddEntry<T extends FieldArrayPath<ResumeOutputType>>({
     name: name,
   });
 
-  const [opstimisticField, setOpstimisticField] = useOptimistic(
-    fields,
-    (currentState, id) => {
-      return currentState.filter((field) => field.id !== id);
-    }
-  );
+  // const [opstimisticField, setOpstimisticField] = useOptimistic(
+  //   fields,
+  //   (currentState, id) => {
+  //     return currentState.filter((field) => field.id !== id);
+  //   }
+  // );
 
   return (
     <>
@@ -72,7 +76,8 @@ export function AddEntry<T extends FieldArrayPath<ResumeOutputType>>({
         <>
           {" "}
           <Accordion
-            className="border-0 flex flex-col gap-8"
+            {...parentProps}
+            className={`border-0 flex flex-col gap-8 ${parentProps?.className}`}
             collapsible
             type="single"
           >
@@ -80,45 +85,46 @@ export function AddEntry<T extends FieldArrayPath<ResumeOutputType>>({
               if (!clean) {
                 return (
                   <AccordionItem key={fieldContent.id} value={fieldContent.id}>
-                    <AccordionTrigger className=" text-white items-center justify-between">
-                      {accordionTriggerContent ? (
-                        <>{accordionTriggerContent(fieldContent)}</>
-                      ) : (
-                        <div className="flex-grow">{`${accordionTriggerDefaultContent} #${index}`}</div>
-                      )}
-                      <div>
-                        <div
-                          onClick={async (ev) => {
-                            ev.preventDefault();
-                            const filteredData = fields.filter(
-                              (field) => field.id !== fieldContent.id
-                            );
+                    <AccordionTrigger className=" text-white items-center ">
+                      <div className="flex items-center gap-2 flex-grow">
+                        {accordionTriggerContent
+                          ? accordionTriggerContent(fieldContent)
+                          : `${accordionTriggerDefaultContent} #${index}`}
+                      </div>
 
-                            try {
-                              await deleteResumeSection(
-                                filteredData,
-                                fieldContent.id,
-                                id as string,
-                                userId as string,
-                                name
-                              );
-                              replace(filteredData);
-                              toast.success(`Successfully removed entry.`);
-                            } catch (error) {
-                              toast.error(
-                                `Failed to delete Entry. Please try again!`
-                              );
-                            }
-                          }}
-                        >
-                          <Trash className=" hover:text-neon-red" size={15} />
-                        </div>
+                      <div
+                        onClick={async (ev) => {
+                          ev.preventDefault();
+                          const filteredData = fields.filter(
+                            (field) => field.id !== fieldContent.id
+                          );
+
+                          try {
+                            await deleteResumeSection(
+                              filteredData,
+                              fieldContent.id,
+                              id as string,
+                              userId as string,
+                              name
+                            );
+                            replace(filteredData);
+                            toast.success(`Successfully removed entry.`);
+                          } catch (error) {
+                            toast.error(
+                              `Failed to delete Entry. Please try again!`
+                            );
+                          }
+                        }}
+                        className=" ml-auto"
+                      >
+                        <Trash className=" hover:text-neon-red" size={15} />
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="grid grid-cols-2 gap-y-8 gap-x-3">
-                      <ContainerWithSubmit isFormPending={isFormPending}>
-                        {children(fieldContent, index)}
-                      </ContainerWithSubmit>{" "}
+                      {children(fieldContent, index)}
+                      <ContainerWithSubmit
+                        isFormPending={isFormPending}
+                      ></ContainerWithSubmit>{" "}
                     </AccordionContent>
                   </AccordionItem>
                 );
@@ -142,7 +148,7 @@ export function AddEntry<T extends FieldArrayPath<ResumeOutputType>>({
       <Button
         onClick={(ev) => {
           ev.preventDefault();
-          append(defaultValue);
+          append({ ...defaultValue, id: getID() });
         }}
         className=" w-full capitalize  text-sm"
       >
