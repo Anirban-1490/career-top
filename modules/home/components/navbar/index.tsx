@@ -15,7 +15,7 @@ export const Navbar = () => {
           <Button variant={"ghost"} className=" uppercase font-bold  text-base">
             LOG IN
           </Button>
-          <Link href={"/dashboard"}>
+          <Link href={"/sign-up"}>
             <Button
               size={"lg"}
               className=" uppercase font-bold  text-base bg-neon-red text-white hover:bg-accent-neon-red"
