@@ -5,7 +5,7 @@ import { ResumeOutputType } from "@/modules/resume-editor/components/sidebar/sch
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 
 export async function deleteResumeSection(
-  filteredData: any,
+  filteredData: Record<string, unknown>[],
   resumeId: string,
   userId: string,
   field: keyof ResumeOutputType

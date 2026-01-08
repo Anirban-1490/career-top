@@ -102,7 +102,6 @@ export function AddEntry<T extends FieldArrayPath<ResumeOutputType>>({
                           try {
                             await deleteResumeSection(
                               filteredData,
-                              fieldContent.id,
                               id as string,
                               userId as string,
                               name
