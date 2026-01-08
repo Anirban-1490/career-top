@@ -57,7 +57,7 @@ export function Editor({
 
   return (
     <main className="h-dvh overflow-hidden flex flex-col">
-      <EditorNavbar contentRef={contentRef} />
+      <EditorNavbar ref={contentRef} />
       <FormProvider {...formMethods}>
         <main className="flex w-full flex-grow  overflow-hidden">
           <EditorSidebar>
