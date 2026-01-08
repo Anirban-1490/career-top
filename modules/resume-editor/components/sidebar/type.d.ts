@@ -4,4 +4,6 @@ import { ResumeOutputType } from "./schema";
 export interface IControlProps {
   control: Control<ResumeOutputType>;
   isFormPending?: boolean;
+  id?: string;
+  userId?: string;
 }

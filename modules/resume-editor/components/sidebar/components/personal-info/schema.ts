@@ -1,7 +1,7 @@
 import z from "zod";
 
 export const personalInfoSchema = z.object({
-  firstName: z.string(),
+  firstName: z.string().optional(),
   lastName: z.string().optional(),
   email: z.email().optional(),
   phone: z.string().optional(),

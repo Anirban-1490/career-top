@@ -5,7 +5,7 @@ export const projectSchema = z.object({
   title: z.string(),
   description: z.string().optional(),
   url: z.string().nullable().optional(),
-  startDate: z.date().nullable().optional(),
-  endDate: z.date().nullable().optional(),
+  startDate: z.string().nullable().optional(),
+  endDate: z.string().nullable().optional(),
   isCurrentlyWorking: z.boolean().catch(false),
 });

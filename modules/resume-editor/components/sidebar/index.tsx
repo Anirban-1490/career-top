@@ -23,7 +23,12 @@ const sideBarContent = [
 
 interface IEditorSidebarProps {
   children: (
-    sideBarContent: (({ control }: IControlProps) => JSX.Element)[]
+    sideBarContent: (({
+      control,
+      isFormPending,
+      id,
+      userId,
+    }: IControlProps) => JSX.Element)[]
   ) => React.ReactNode;
 }
 

@@ -2,6 +2,7 @@ import React, { PropsWithChildren } from "react";
 import { Button } from "./button";
 import { Check } from "lucide-react";
 import { Spinner } from "./spinner";
+import { ContainerWithSpinner } from "../common/container-with-spinner";
 interface IContainerWithSubmitProps {
   isFormPending?: boolean;
   buttonContent?: React.ReactElement;
@@ -31,7 +32,7 @@ export default function ContainerWithSubmit({
             )}
           </>
         ) : (
-          <Spinner />
+          <ContainerWithSpinner spinnerProps={{ className: "size-5" }} />
         )}
       </Button>
     </>

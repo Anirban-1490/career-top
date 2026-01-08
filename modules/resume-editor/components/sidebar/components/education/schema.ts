@@ -6,7 +6,7 @@ export const educationSchema = z.object({
   institute: z.string(),
   description: z.string().optional(),
   location: z.string(),
-  startDate: z.date().nullable().optional(),
-  endDate: z.date().nullable().optional(),
+  startDate: z.string().nullable().optional(),
+  endDate: z.string().nullable().optional(),
   isCurrentlyStudying: z.boolean().catch(false),
 });

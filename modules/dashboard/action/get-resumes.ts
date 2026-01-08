@@ -1,12 +1,17 @@
 "use server";
 
 import { db } from "@/firebase/firebase-client";
+import { ajlib } from "@/lib/arcjet";
 import { collection, getDocs } from "firebase/firestore";
 
 export async function getResumes(userId: string) {
+  await ajlib();
+
   const docs = await getDocs(
     collection(db, "userResumes", userId, "allResume")
   );
 
-  return docs.docs.map((doc) => doc.data());
+  return {
+    docs: docs.docs.map((doc) => doc.data()),
+  };
 }
