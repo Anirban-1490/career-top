@@ -1,8 +1,8 @@
 "use client";
 
-import { BriefcaseBusiness, Home, List, StickyNote } from "lucide-react";
+import { BriefcaseBusiness, Home, StickyNote } from "lucide-react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 
 const sidebarLinks = [

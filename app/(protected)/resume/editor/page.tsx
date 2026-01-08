@@ -1,7 +1,6 @@
 import { getResume } from "@/action/get-resume";
 import { user } from "@/lib/user";
 import { Editor } from "@/modules/resume-editor";
-import { Suspense } from "react";
 
 export default async function ResumeEditor({
   searchParams,

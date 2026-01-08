@@ -1,23 +1,16 @@
 "use client";
 
-import React, { use } from "react";
 import { EmptyContent } from "../empty-content";
 import { useRouter } from "next/navigation";
 
 import { addResume } from "@/action/save-resume";
 import { getID } from "@/lib/get-id";
-import { ResumeOutputType } from "@/modules/resume-editor/components/sidebar/schema";
+
 import { Button } from "@/components/ui/button";
 import { Edit, Plus, Trash } from "lucide-react";
-import dayjs from "dayjs";
-import { callAPI } from "@/lib/call-api";
+
 import { deleteResume } from "@/action/delete-resume";
-import {
-  useMutation,
-  useQuery,
-  useQueryClient,
-  useSuspenseQuery,
-} from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { ContainerWithSpinner } from "@/components/common/container-with-spinner";
 import { getResumes } from "../../action/get-resumes";
