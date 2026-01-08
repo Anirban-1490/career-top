@@ -2,19 +2,10 @@
 
 import { db } from "@/firebase/firebase-client";
 import { ResumeOutputType } from "@/modules/resume-editor/components/sidebar/schema";
-import {
-  collection,
-  deleteDoc,
-  doc,
-  query,
-  updateDoc,
-  where,
-} from "firebase/firestore";
-import { keyof } from "zod";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 
 export async function deleteResumeSection(
   filteredData: any,
-  fieldId: string,
   resumeId: string,
   userId: string,
   field: keyof ResumeOutputType
