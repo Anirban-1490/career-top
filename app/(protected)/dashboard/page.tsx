@@ -6,7 +6,7 @@ export default async function DashboardPage() {
       <div>
         <h2 className=" text-center">
           {" "}
-          Hi, {(user?.name as string).split(" ")[0]}
+          Hi, {user ? (user.name as string).split(" ")[0] : "User"}
         </h2>
       </div>
     </section>
