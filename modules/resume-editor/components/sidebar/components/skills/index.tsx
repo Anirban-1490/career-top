@@ -8,7 +8,7 @@ import { AddEntry } from "../ui/add-entry";
 import { IControlProps } from "../../type";
 import { DEFAULT_SKILL } from "./constant";
 import { Button } from "@/components/ui/button";
-import { Check, Edit } from "lucide-react";
+import { Check, Edit, Trash } from "lucide-react";
 import { InputWithControl } from "../ui/input-with-control";
 import { Spinner } from "@/components/ui/spinner";
 
@@ -25,12 +25,15 @@ export function Skills({ control, isFormPending }: IControlProps) {
           control={control}
           noEntryHeader="No skills added"
           noEntryDescription="Please add some more skills for a better resume"
+          parentProps={{
+            className: "gap-2!",
+          }}
           clean
         >
           {(skill, index) => {
             const isEditing = editSkills.has(skill.id);
             return (
-              <div className=" border-b border-ring w-full py-5 flex justify-between">
+              <div className=" border-b border-ring w-full py-3 flex justify-between">
                 <InputWithControl
                   control={control}
                   name={`skills.${index}.label`}
@@ -42,7 +45,9 @@ export function Skills({ control, isFormPending }: IControlProps) {
                 />
                 <Button
                   onClick={(ev) => {
-                    ev.preventDefault();
+                    if (!isEditing) {
+                      ev.preventDefault();
+                    }
 
                     if (isFormPending) {
                       ev.stopPropagation();
@@ -57,12 +62,36 @@ export function Skills({ control, isFormPending }: IControlProps) {
                       return next;
                     });
                   }}
-                  type="submit"
                   variant={"ghost"}
                   disabled={isFormPending}
                 >
                   {isFormPending && <Spinner />}
-                  {isEditing && !isFormPending ? <Check /> : <Edit />}
+                  {!isFormPending && (isEditing ? <Check /> : <Edit />)}
+                </Button>
+                <Button
+                  onClick={async (ev) => {
+                    // ev.preventDefault();
+                    // const filteredData = fields.filter(
+                    //   (field) => field.id !== fieldContent.id
+                    // );
+                    // try {
+                    //   await deleteResumeSection(
+                    //     filteredData,
+                    //     fieldContent.id,
+                    //     id as string,
+                    //     userId as string,
+                    //     name
+                    //   );
+                    //   replace(filteredData);
+                    //   toast.success(`Successfully removed entry.`);
+                    // } catch (error) {
+                    //   toast.error(`Failed to delete Entry. Please try again!`);
+                    // }
+                  }}
+                  className=" hover:text-neon-red ml-auto"
+                  variant={"ghost"}
+                >
+                  <Trash size={15} />
                 </Button>
               </div>
             );
