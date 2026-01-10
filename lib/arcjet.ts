@@ -1,4 +1,9 @@
-import arcjet, { detectBot, request, tokenBucket } from "@arcjet/next";
+import arcjet, {
+  ArcjetRateLimitReason,
+  detectBot,
+  request,
+  tokenBucket,
+} from "@arcjet/next";
 
 function getAJ() {
   return arcjet({
@@ -46,5 +51,13 @@ export async function ajlib({
     if (decision.reason.isRateLimit()) {
       throw decision.reason;
     }
+  }
+  if (decision.isAllowed()) {
+    const rateLimitReason = decision.results[0].reason as ArcjetRateLimitReason;
+
+    return {
+      maxToken: rateLimitReason.max,
+      remaining: rateLimitReason.remaining,
+    };
   }
 }
