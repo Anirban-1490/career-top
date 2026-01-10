@@ -12,6 +12,6 @@ export async function UserProfile() {
 
     return claim;
   } catch (error) {
-    notFound();
+    // redirect("/sign-up");
   }
 }
