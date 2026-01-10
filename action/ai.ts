@@ -5,6 +5,7 @@ import { geminiAI } from "@/services/gemini";
 import { ArcjetRateLimitReason } from "@arcjet/next";
 import dayjs from "dayjs";
 import { UserProfile } from "./user-profile";
+import { redirect } from "next/navigation";
 
 const AIEnhancerPrompt = (description: string) => `
 Make yourself as a expert resume analyzer who gives very ATS friendly resume.
@@ -31,13 +32,14 @@ export async function AIEnhancer(description: string) {
   let maxToken, remaining;
   try {
     const user = await UserProfile();
+    if (!user) redirect("sign-up");
 
     const ajResult = await ajlib({
       tokenMaxCapacity: 5,
       tokenInterval: "1d",
       tokenRefillRate: 1,
       config: {
-        userId: user.uid,
+        userId: user?.uid,
       },
     });
     (maxToken = ajResult?.maxToken), (remaining = ajResult?.remaining);
