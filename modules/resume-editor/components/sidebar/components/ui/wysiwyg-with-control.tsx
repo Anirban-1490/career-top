@@ -1,12 +1,9 @@
-import { GenericDatePicker } from "@/components/ui/generic-datepicker";
-import React from "react";
-
 import { Controller } from "react-hook-form";
-import dayjs from "dayjs";
-import { IInputWithControlProps } from "../work/type";
+
 import { WYSIWYG } from "@/components/ui/wysiwyg";
 import { Button } from "@/components/ui/button";
 import { AIDialog } from "@/components/common/ai-dialog";
+import { IInputWithControlProps } from "../../type";
 
 export function WYSIWYGWithControl({
   control,

@@ -1,15 +1,17 @@
 import { Input } from "@/components/ui/input";
 import { Controller } from "react-hook-form";
-import { IInputWithControlProps } from "../work/type";
-import React from "react";
 
-export function InputWithControl({
+import React from "react";
+import { IInputWithControlProps } from "../../type";
+import { ResumeOutputType } from "../../schema";
+
+export function InputWithControl<TControl extends ResumeOutputType>({
   control,
   name,
   labelContent,
   parentProps,
   ...props
-}: IInputWithControlProps & React.ComponentProps<"input">) {
+}: IInputWithControlProps<ResumeOutputType> & React.ComponentProps<"input">) {
   return (
     <Controller
       control={control}

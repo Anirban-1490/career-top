@@ -3,8 +3,9 @@ import React from "react";
 
 import { Controller } from "react-hook-form";
 import dayjs from "dayjs";
-import { IInputWithControlProps } from "../work/type";
+
 import { DatePickerProps } from "antd";
+import { IInputWithControlProps } from "../../type";
 
 export function DatepickerWithControl({
   control,
