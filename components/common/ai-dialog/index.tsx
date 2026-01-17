@@ -51,7 +51,6 @@ function AIDialogInner({
   setOpen: (value: boolean) => void;
 }) {
   const [text, setText] = useState("");
-  const [hasMounted, setHasMounted] = useState(false);
 
   const { isFetching, data, refetch } = useQuery({
     queryKey: ["ai-enchancer"],
@@ -60,17 +59,13 @@ function AIDialogInner({
 
     gcTime: 0,
   });
+  const enhancedText = data?.aiResponse?.enhancedText;
 
   useEffect(() => {
-    setHasMounted(true);
-
-    return () => setHasMounted(false);
-  }, []);
-  useEffect(() => {
-    if (data?.enhancedText) {
-      setText?.(data?.enhancedText as string);
+    if (enhancedText) {
+      setText?.(enhancedText as string);
     }
-  }, [data?.enhancedText, setText]);
+  }, [enhancedText, setText]);
 
   return (
     <>
@@ -90,9 +85,7 @@ function AIDialogInner({
         {!isFetching && data?.message ? (
           <div className="mt-auto text-center">{data.message}</div>
         ) : (
-          <div className=" list-disc ">
-            {Parser().parse(data?.enhancedText)}
-          </div>
+          <div className=" list-disc ">{Parser().parse(enhancedText)}</div>
         )}
       </div>
       <div className="flex justify-end items-center gap-3">
@@ -101,8 +94,8 @@ function AIDialogInner({
             if (isFetching) return;
             refetch();
           }}
-          disabled={isFetching || data?.rateLimit.hasExceededRateLimit}
-          aria-disabled={isFetching || data?.rateLimit.hasExceededRateLimit}
+          disabled={isFetching || data?.rateLimit?.hasExceededRateLimit}
+          aria-disabled={isFetching || data?.rateLimit?.hasExceededRateLimit}
           variant={"ghost"}
           size={"lg"}
           className="w-fit h-fit !p-0 disabled:cursor-not-allowed"
@@ -111,8 +104,8 @@ function AIDialogInner({
           <RefreshCcw className=" size-5" />
         </Button>
         <span>
-          Re-Enhance Left: {data?.rateLimit.remaining}/
-          {data?.rateLimit.maxToken}
+          Re-Enhance Left: {data?.rateLimit?.remaining}/
+          {data?.rateLimit?.maxToken}
         </span>
       </div>
       <DialogFooter className="mt-5">

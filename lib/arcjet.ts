@@ -5,6 +5,16 @@ import arcjet, {
   tokenBucket,
 } from "@arcjet/next";
 
+export interface IAJLibProps {
+  tokenRefillRate?: number;
+  tokenInterval?: string;
+  tokenMaxCapacity?: number;
+  requested?: number;
+  config: {
+    userId: string;
+  };
+}
+
 function getAJ() {
   return arcjet({
     key: process.env.ARCJET_KEY as string,
@@ -23,15 +33,7 @@ export async function ajlib({
   tokenMaxCapacity = 12,
   requested = 1,
   config,
-}: {
-  tokenRefillRate?: number;
-  tokenInterval?: string;
-  tokenMaxCapacity?: number;
-  requested?: number;
-  config: {
-    userId: string;
-  };
-}) {
+}: IAJLibProps) {
   const req = await request();
 
   //TODO: do a ai token based rule
