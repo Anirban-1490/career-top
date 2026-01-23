@@ -98,7 +98,7 @@ export function AllResume({ userId }: IALLResumeProps) {
       )}
       {resumes && resumes.length > 0 && (
         <>
-          <h4 className=" text-3xl font-semibold mb-10">All Resumes</h4>
+          <h2 className=" text-3xl font-semibold mb-10">All Resumes</h2>
           <div className=" flex gap-10 flex-wrap">
             {resumes.map((resume) => {
               return (

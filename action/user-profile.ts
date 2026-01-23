@@ -12,6 +12,12 @@ export async function UserProfile() {
 
     return claim;
   } catch (error) {
-    // redirect("/sign-up");
+    return null;
   }
+}
+
+export async function checkUser() {
+  const user = await UserProfile();
+  if (!user) redirect("/sign-up");
+  return user;
 }
