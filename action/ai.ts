@@ -4,12 +4,18 @@ import { ajlib, IAJLibProps } from "@/lib/arcjet";
 import { geminiAI } from "@/services/gemini";
 import { ArcjetRateLimitReason } from "@arcjet/next";
 import dayjs from "dayjs";
-import { UserProfile } from "./user-profile";
+import { checkUser } from "./user-profile";
 import { redirect } from "next/navigation";
-import { AIEnhancerPrompt } from "@/services/gemini/prompts";
+import {
+  AIEnhancerPrompt,
+  IndustryTrendsPrompt,
+} from "@/services/gemini/prompts";
+
+import { TrendsType } from "@/modules/dashboard/components/trends/schema";
+import { AITrendsType } from "@/types/trends";
 
 interface IAIGenerateContentProps {
-  rateLimit?: Omit<IAJLibProps, "config">;
+  rateLimit?: IAJLibProps;
   prompt: string | (() => string);
 }
 
@@ -29,17 +35,11 @@ const AIGenerateContent = async <T>({
 }> => {
   let maxToken, remaining;
   try {
-    const user = await UserProfile();
-    if (!user) redirect("/sign-up");
-
     if (rateLimit) {
       const ajResult = await ajlib({
         ...rateLimit,
-        config: {
-          userId: user?.uid,
-        },
       });
-      (maxToken = ajResult?.maxToken), (remaining = ajResult?.remaining);
+      ((maxToken = ajResult?.maxToken), (remaining = ajResult?.remaining));
     }
 
     const aiResponse = await geminiAI.models.generateContent({
@@ -50,7 +50,8 @@ const AIGenerateContent = async <T>({
     });
 
     //* remove the ```json``` from the ai response with a regex
-    const formattedText = aiResponse.text?.match(/\{[^}]*\}/i)?.[0];
+    const formattedText = aiResponse.text?.replace(/^```[\w]*\s*|\s*```$/g, "");
+
     const jsonOutput = JSON.parse(formattedText as string);
     return {
       aiResponse: jsonOutput,
@@ -71,7 +72,7 @@ const AIGenerateContent = async <T>({
       return {
         aiResponse: null,
         message: `Oops! Limit Reached. Next refill in ${dayjs(
-          error.resetTime
+          error.resetTime,
         ).diff(dayjs(), "hours")}h`,
         rateLimit: {
           maxToken: error.max,
@@ -97,6 +98,8 @@ const AIGenerateContent = async <T>({
 };
 
 export async function AIEnhancer(description: string) {
+  const user = await checkUser();
+  if (!user) redirect("/sign-up");
   const result = await AIGenerateContent<{ enhancedText: string }>({
     prompt: () => {
       return AIEnhancerPrompt(description);
@@ -105,7 +108,27 @@ export async function AIEnhancer(description: string) {
       tokenMaxCapacity: 5,
       tokenInterval: "1d",
       tokenRefillRate: 1,
+      config: {
+        userId: user.uid,
+      },
     },
+  });
+
+  return {
+    ...result,
+  };
+}
+
+export async function AIIndustryTrends(props: Omit<TrendsType, "nextUpdate">) {
+  const result = await AIGenerateContent<AITrendsType>({
+    prompt: () => {
+      return IndustryTrendsPrompt({ ...props });
+    },
+    // rateLimit: {
+    //   tokenMaxCapacity: 5,
+    //   tokenInterval: "1d",
+    //   tokenRefillRate: 1,
+    // },
   });
 
   return {
