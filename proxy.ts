@@ -8,7 +8,7 @@ const PROTECTED_ROUTES = ["/dashboard", "/resume"];
 export async function proxy(request: NextRequest) {
   const pathName = request.nextUrl.pathname;
   const isProtectedRoute = PROTECTED_ROUTES.some((route) =>
-    pathName.startsWith(route)
+    pathName.startsWith(route),
   );
   const sessionCookie = (await cookies()).get("session")?.value;
 
@@ -31,7 +31,7 @@ export async function proxy(request: NextRequest) {
     if (isProtectedRoute) {
       return NextResponse.redirect(new URL("/sign-up", request.url));
     }
-    return;
+    return NextResponse.next();
   }
 }
 

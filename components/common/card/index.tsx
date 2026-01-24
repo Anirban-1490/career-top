@@ -25,14 +25,14 @@ export function Card({
     <article
       {...cardProps}
       className={cn(
-        "relative cursor-pointer bg-neon-red hover:bg-accent-neon-red hover:text-background transition duration-500 ease-in-out ease-in px-6 pt-6 h-[22rem] rounded-xl flex flex-col gap-4 ",
-        cardProps?.className
+        "relative  transition duration-500 ease-in-out ease-in px-6 p-6 rounded-xl flex flex-col gap-4 ",
+        cardProps?.className,
       )}
     >
-      <div className={`flex flex-col`}>
+      <div className={`flex flex-col gap-2`}>
         <h3
           {...titleProps}
-          className={` ${descriptionFirst ? "order-2" : ""} ${
+          className={`text-md font-bold ${descriptionFirst ? "order-2" : ""} ${
             titleProps?.className
           }`}
         >
@@ -42,7 +42,10 @@ export function Card({
           {description}
         </p>
       </div>
-      <div className=" flex-1" {...cardContentProps}>
+      <div
+        className={cn("flex-1", cardContentProps?.className)}
+        {...cardContentProps}
+      >
         {children}
       </div>
     </article>

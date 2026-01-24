@@ -5,21 +5,21 @@ import { getAuth } from "firebase-admin/auth";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-const expiresIn = dayjs().add(10, "days");
-const expireInMili = expiresIn.diff(dayjs()).toFixed();
+const expiresIn = 10 * 24 * 60 * 60;
 
 export async function POST(request: NextRequest) {
   const { idToken } = (await request.json()) as { idToken: string };
+
   const sessionCookie = await auth.createSessionCookie(idToken, {
-    expiresIn: +expireInMili,
+    expiresIn: expiresIn * 1000,
   });
 
   try {
     (await cookies()).set("session", sessionCookie, {
-      maxAge: +expireInMili / 1000,
+      maxAge: expiresIn,
       httpOnly: true,
       secure: true,
-      sameSite: true,
+      sameSite: "strict",
     });
 
     return NextResponse.json({

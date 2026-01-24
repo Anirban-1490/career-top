@@ -5,7 +5,11 @@ import { ajlib } from "@/lib/arcjet";
 import { collection, getDocs } from "firebase/firestore";
 
 export async function getResumes(userId: string) {
-  await ajlib();
+  await ajlib({
+    config: {
+      userId,
+    },
+  });
 
   const docs = await getDocs(
     collection(db, "userResumes", userId, "allResume")
