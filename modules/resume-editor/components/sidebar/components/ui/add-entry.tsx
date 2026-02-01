@@ -23,7 +23,7 @@ import { getID } from "@/lib/get-id";
 import { AccordionSingleProps } from "@radix-ui/react-accordion";
 
 interface IAddEntryProps<T extends FieldArrayPath<ResumeOutputType>>
-  extends IControlProps {
+  extends IControlProps<ResumeOutputType> {
   name: T;
   defaultValue: any;
   noEntryHeader?: string;

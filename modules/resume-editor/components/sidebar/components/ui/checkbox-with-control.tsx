@@ -1,7 +1,7 @@
 import { Checkbox } from "@/components/ui/checkbox";
 
 import { Controller } from "react-hook-form";
-import { IInputWithControlProps } from "../work/type";
+import { IInputWithControlProps } from "../../type";
 
 export function CheckboxWithControl({
   control,

@@ -30,13 +30,12 @@ const BtnAlignRight = createButton(
 );
 export function WYSIWYG({
   labelContent,
+  showToolbar = true,
   ...props
-}: IGenericLabelProps & EditorProps) {
+}: IGenericLabelProps & EditorProps & { showToolbar?: boolean }) {
   return (
     <GenericLabel
       parentProps={{
-        className: "col-span-2 ",
-
         id: "editor",
       }}
       labelContent={labelContent}
@@ -47,17 +46,21 @@ export function WYSIWYG({
           className: `!min-h-[14rem] !border-input-outline ${props.className}`,
         }}
       >
-        <Toolbar>
-          <BtnBold />
-          <BtnItalic />
-          <BtnUnderline />
-          <BtnStrikeThrough />
-          <BtnBulletList />
-          <BtnLink />
-          <BtnAlignLeft />
-          <BtnAlignCenter />
-          <BtnAlignRight />
-        </Toolbar>
+        {showToolbar ? (
+          <Toolbar>
+            <BtnBold />
+            <BtnItalic />
+            <BtnUnderline />
+            <BtnStrikeThrough />
+            <BtnBulletList />
+            <BtnLink />
+            <BtnAlignLeft />
+            <BtnAlignCenter />
+            <BtnAlignRight />
+          </Toolbar>
+        ) : (
+          <></>
+        )}
       </Editor>
     </GenericLabel>
   );

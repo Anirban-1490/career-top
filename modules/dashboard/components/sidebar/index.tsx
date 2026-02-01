@@ -1,6 +1,6 @@
 "use client";
 
-import { BriefcaseBusiness, Home, StickyNote } from "lucide-react";
+import { BriefcaseBusiness, Building2, Home, StickyNote } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
@@ -24,6 +24,12 @@ const sidebarLinks = [
     url: "",
     icon: BriefcaseBusiness,
   },
+  {
+    label: "Industry Trends",
+    id: "trends",
+    url: "/dashboard/trends",
+    icon: Building2,
+  },
 ];
 
 interface ISidebarProps {
@@ -37,9 +43,9 @@ export function SideBar({ activeId }: ISidebarProps) {
   const fullTabId = pathName || tabId;
 
   return (
-    <aside className=" w-[21rem]  sticky left-0 top-0   px-6 py-10">
+    <aside className=" w-[21rem] shrink-0  sticky left-0 top-0   px-6 py-10">
       <div className="flex flex-col">
-        <ul className=" flex flex-col gap-4">
+        <ul className=" flex flex-col gap-4 pl-0!">
           {sidebarLinks.map((link) => {
             return (
               <li
@@ -47,6 +53,7 @@ export function SideBar({ activeId }: ISidebarProps) {
                 onClick={(ev) => {
                   setTabId(link.id);
                 }}
+                className="!list-none"
               >
                 <Link
                   href={link.url}
