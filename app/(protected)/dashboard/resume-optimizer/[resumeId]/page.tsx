@@ -6,7 +6,6 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 
-
 export default async function OptimizedResume({
   params,
 }: {
@@ -18,7 +17,7 @@ export default async function OptimizedResume({
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ["optimised-resume"],
+    queryKey: ["optimised-resume", resumeId],
     queryFn: async () => {
       return getUserOptimziedResume(resumeId);
     },

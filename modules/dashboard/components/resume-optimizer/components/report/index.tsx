@@ -17,7 +17,7 @@ const borderColorMap = {
 export function ResumeReport({ resumeId }: { resumeId: string }) {
   const router = useRouter();
   const { data, isFetching } = useQuery({
-    queryKey: ["optimised-resume"],
+    queryKey: ["optimised-resume", resumeId],
     queryFn: async () => {
       return getUserOptimziedResume(resumeId);
     },
