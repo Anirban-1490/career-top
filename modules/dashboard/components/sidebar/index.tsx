@@ -1,6 +1,12 @@
 "use client";
 
-import { BriefcaseBusiness, Building2, Home, StickyNote } from "lucide-react";
+import {
+  BriefcaseBusiness,
+  Building2,
+  Home,
+  StickyNote,
+  ListChecks,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
@@ -17,6 +23,12 @@ const sidebarLinks = [
     id: "resume",
     url: "/dashboard/resume",
     icon: StickyNote,
+  },
+  {
+    label: "Resume Optimizer",
+    id: "resume-optimizer",
+    url: "/dashboard/resume-optimizer",
+    icon: ListChecks,
   },
   {
     label: "Job Search",
