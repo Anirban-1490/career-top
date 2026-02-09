@@ -1,0 +1,11 @@
+version: "3"
+services:
+  inngest:
+    image: inngest/inngest:latest
+    ports:
+      - "8288:8288"
+    command: "inngest dev -u http://host.docker.internal:3000/api/inngest"
+    develop:
+      watch:
+        - path: ./docker-compose.yaml
+          action: restart
