@@ -11,4 +11,4 @@ LABEL description="Career Top - AI Job Search and Resume Builder"
 
 
 
-CMD npm run dev
+CMD ["npm", "run", "dev"]
