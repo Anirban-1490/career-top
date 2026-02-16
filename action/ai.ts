@@ -9,20 +9,21 @@ import { redirect } from "next/navigation";
 import {
   AIEnhancerPrompt,
   IndustryTrendsPrompt,
+  resumeOptimizerPrompt,
 } from "@/services/gemini/prompts";
 
 import { TrendsType } from "@/modules/dashboard/components/trends/schema";
 import { AITrendsType } from "@/types/trends";
+import { ContentListUnion, createPartFromUri, Part } from "@google/genai";
+import { AIResumeOptimizerType } from "@/types/optimizer";
 
 interface IAIGenerateContentProps {
   rateLimit?: IAJLibProps;
-  prompt: string | (() => string);
+  prompt?: string | (() => string);
+  extraContent?: ContentListUnion;
 }
 
-const AIGenerateContent = async <T>({
-  rateLimit,
-  prompt,
-}: IAIGenerateContentProps): Promise<{
+export interface AIGeneratedContentResponseProps<T> {
   rateLimit?:
     | {
         maxToken: number | undefined;
@@ -32,7 +33,13 @@ const AIGenerateContent = async <T>({
     | undefined;
   aiResponse: T | null;
   message: string;
-}> => {
+}
+
+const AIGenerateContent = async <T>({
+  rateLimit,
+  prompt,
+  extraContent,
+}: IAIGenerateContentProps): Promise<AIGeneratedContentResponseProps<T>> => {
   let maxToken, remaining;
   try {
     if (rateLimit) {
@@ -44,9 +51,12 @@ const AIGenerateContent = async <T>({
 
     const aiResponse = await geminiAI.models.generateContent({
       model: "gemini-2.5-flash",
-      contents: {
-        text: typeof prompt == "string" ? prompt : prompt(),
-      },
+      contents:
+        !prompt && extraContent
+          ? extraContent
+          : {
+              text: typeof prompt == "string" ? prompt : prompt?.(),
+            },
     });
 
     //* remove the ```json``` from the ai response with a regex
@@ -130,6 +140,41 @@ export async function AIIndustryTrends(props: Omit<TrendsType, "nextUpdate">) {
     //   tokenRefillRate: 1,
     // },
   });
+
+  return {
+    ...result,
+  };
+}
+
+export async function AIOptimizer(file: File) {
+  const pdfBuffer = await file.arrayBuffer();
+  const uploadedFile = await geminiAI.files.upload({
+    file: new Blob([pdfBuffer], { type: file.type }),
+    config: {
+      displayName: file.name,
+    },
+  });
+
+  if (uploadedFile.state == "FAILED") {
+    throw new Error("Failed to process file");
+  }
+
+  //TODO prompt
+  const content = [resumeOptimizerPrompt] as (string | Part)[];
+
+  if (uploadedFile.mimeType && uploadedFile.uri) {
+    const fileContent = createPartFromUri(
+      uploadedFile.uri,
+      uploadedFile.mimeType,
+    );
+    content.push(fileContent);
+  }
+
+  const result = await AIGenerateContent<AIResumeOptimizerType>({
+    extraContent: content,
+  });
+
+  console.log(result);
 
   return {
     ...result,
