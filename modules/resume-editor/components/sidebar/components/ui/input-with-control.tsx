@@ -6,21 +6,28 @@ import { IInputWithControlProps } from "../../type";
 import { ResumeOutputType } from "../../schema";
 
 export function InputWithControl<
-  TControl extends FieldValues = ResumeOutputType
+  TControl extends FieldValues = ResumeOutputType,
 >({
   control,
   name,
   labelContent,
   parentProps,
+  containerProps,
   ...props
-}: IInputWithControlProps<TControl> & React.ComponentProps<"input">) {
+}: IInputWithControlProps<TControl> &
+  React.ComponentProps<"input"> & {
+    containerProps?: React.ComponentProps<"div">;
+  }) {
   return (
     <Controller
       control={control}
       name={name}
       render={({ field, formState: { errors } }) => {
         return (
-          <div className="col-span-2">
+          <div
+            {...containerProps}
+            className={`col-span-2 ${containerProps?.className}`}
+          >
             <Input
               {...props}
               parentProps={{
