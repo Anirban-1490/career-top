@@ -1,4 +1,5 @@
 import { app, auth } from "@/firebase/firebase-client";
+import { getDomain } from "@/lib/utils";
 import axios from "axios";
 import {
   browserLocalPersistence,
@@ -18,7 +19,7 @@ export const signUP = async () => {
 
   const token = await getIdToken(result.user);
 
-  await axios.post("http://localhost:3000/api/sign-in", {
+  await axios.post(`${getDomain()}/api/sign-in`, {
     idToken: token,
   });
   return signOut(auth);
