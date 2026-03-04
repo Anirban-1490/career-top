@@ -1,3 +1,4 @@
+import { GenericLabel } from "@/components/ui/generic-label";
 import {
   Select,
   SelectContent,
@@ -12,13 +13,17 @@ import { ReactNode } from "react";
 import { Controller, FieldValues } from "react-hook-form";
 
 export default function SelectWithControl<
-  TControl extends FieldValues = TrendsType
+  TControl extends FieldValues = TrendsType,
 >({
   control,
   name,
   options = [],
   selectValueProps,
   parentSelectProps,
+  labelContent,
+  labelProps,
+  parentProps,
+  hidden,
   id,
 }: IInputWithControlProps<TControl> & {
   options: { label: ReactNode; value: string }[] | null;
@@ -32,7 +37,15 @@ export default function SelectWithControl<
       control={control}
       render={({ field, formState: { errors } }) => {
         return (
-          <div>
+          <GenericLabel
+            parentProps={{
+              className: `w-full ${parentProps?.className}`,
+              ...parentProps,
+            }}
+            labelContent={labelContent}
+            hidden={hidden}
+            labelProps={{ htmlFor: id, className: "mb-0", ...labelProps }}
+          >
             <Select
               {...parentSelectProps}
               value={field.value}
@@ -64,7 +77,7 @@ export default function SelectWithControl<
                 {errors[name]?.message as string}
               </p>
             )}
-          </div>
+          </GenericLabel>
         );
       }}
     />
