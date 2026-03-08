@@ -9,6 +9,7 @@ import { GoogleOutlined } from "@ant-design/icons";
 import { signUP } from "./auth/auth";
 import { getAuth } from "firebase/auth";
 import { useRouter } from "next/navigation";
+import { ArrowLeft } from "lucide-react";
 
 export default function Authenticaiton({ type }: { type: string }) {
   const route = useRouter();
@@ -46,6 +47,14 @@ export default function Authenticaiton({ type }: { type: string }) {
             className="mt-10"
           >
             <GoogleOutlined /> Login with Google
+          </Button>
+          <Button
+            onClick={() => {
+              route.push("/");
+            }}
+            variant={"ghost"}
+          >
+            <ArrowLeft /> Go back
           </Button>
         </div>
       </div>
