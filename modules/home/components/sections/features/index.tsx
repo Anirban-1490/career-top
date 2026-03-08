@@ -13,7 +13,7 @@ export function FeatureSection() {
           <br /> better with Careertop
         </h2>
       </div>
-      <div className=" px-[10rem] grid grid-cols-4 gap-4 gap-y-6">
+      <div className=" px-[10rem] grid grid-cols-4 gap-4 gap-y-6 h-[50rem]">
         {featureData.map((feature) => {
           const cardProps = feature.parentClassName
             ? { className: feature.parentClassName }
@@ -24,7 +24,10 @@ export function FeatureSection() {
               title="AI Resume Builder"
               description="Use AI to make your resume ATS-friendly, boost your score."
               key={feature.id}
-              cardProps={{ ...cardProps }}
+              cardProps={{
+                ...cardProps,
+                className: `${cardProps.className} bg-neon-red  pb-0 hover:bg-accent-neon-red duration-300`,
+              }}
               titleProps={{ className: "text-md font-semibold mb-2" }}
               descriptionProps={{ className: "text-base" }}
             >
