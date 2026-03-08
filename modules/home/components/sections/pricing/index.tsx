@@ -36,7 +36,7 @@ export function PricingSection() {
                 className: `basis-[25rem] h-auto px-10 py-12 pb-25 hover:bg-unset hover:text-unset ${
                   pricing.id !== "plan_premium"
                     ? "bg-transparent border border-neon-red"
-                    : ""
+                    : "bg-neon-red"
                 }`,
               }}
               titleProps={{ className: "text-3xl font-bold" }}
@@ -54,11 +54,11 @@ export function PricingSection() {
                 </Button>
                 <div>
                   <h4 className="mb-5">What&apos;s Included:</h4>
-                  <ul className=" flex flex-col gap-4">
+                  <ul className=" flex flex-col gap-4 px-0!">
                     {pricing.features.map((pricingFeature) => {
                       return (
                         <li
-                          className=" flex items-center gap-4"
+                          className=" flex items-center gap-4 list-none! "
                           key={pricingFeature.id}
                         >
                           <CircleCheck

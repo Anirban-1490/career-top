@@ -1,5 +1,6 @@
 import { Bubble } from "@/components/common/bubble";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export function CTA() {
   return (
@@ -21,14 +22,14 @@ export function CTA() {
               you and score interviews quicker — free to use.
             </p>
           </div>
-          <Button
-            size={"lg"}
-            className={`uppercase h-[4rem] text-base hover:bg-initial hover:scale-105 
-                  bg-background font-semibold px-8
+          <Link
+            href={"/sign-up"}
+            className={`uppercase text-base hover:bg-initial hover:scale-105 
+                  bg-background font-semibold px-8 py-4 rounded-md
                 `}
           >
             Sign Up For Free
-          </Button>
+          </Link>
         </div>
       </Bubble>
     </div>

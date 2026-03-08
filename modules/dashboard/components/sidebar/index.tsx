@@ -1,15 +1,18 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import {
   BriefcaseBusiness,
   Building2,
   Home,
   StickyNote,
   ListChecks,
+  Settings,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
+import { SettingsPopup } from "./components/settings";
 
 const sidebarLinks = [
   {
@@ -55,9 +58,9 @@ export function SideBar({ activeId }: ISidebarProps) {
   const fullTabId = pathName || tabId;
 
   return (
-    <aside className=" w-[21rem] shrink-0  fixed left-0 top-0   px-6 py-10">
-      <div className="flex flex-col">
-        <ul className=" flex flex-col gap-4 pl-0!">
+    <aside className=" w-[21rem] shrink-0  fixed left-0 top-0   px-6 py-10 h-full">
+      <div className="flex flex-col h-full">
+        <ul className=" flex flex-col gap-4 pl-0! h-full">
           {sidebarLinks.map((link) => {
             return (
               <li
@@ -81,6 +84,18 @@ export function SideBar({ activeId }: ISidebarProps) {
               </li>
             );
           })}
+          <SettingsPopup>
+            <Button
+              key={"settings"}
+              variant={"ghost"}
+              size={"lg"}
+              onClick={(ev) => {}}
+              className="!list-none font-semibold flex gap-5 items-center p-2.5 mt-auto w-fit"
+            >
+              <Settings />
+              Settings
+            </Button>
+          </SettingsPopup>
         </ul>
       </div>
     </aside>
