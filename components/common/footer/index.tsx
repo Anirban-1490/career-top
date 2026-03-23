@@ -65,10 +65,14 @@ export function Footer() {
           })}
         </div>
       </div>
+
       <div>
-        <p className="mx-auto w-full text-center mt-[10rem] py-5 text-sm">
+        <p className="mx-auto w-full text-center  py-5 text-sm">
           Copyright © {new Date().getFullYear()} Careertop
         </p>
+      </div>
+      <div className="text-[12em] text-center h-fit tracking-[0.2em] opacity-10">
+        career<span className=" text-neon-red">top</span>
       </div>
     </footer>
   );

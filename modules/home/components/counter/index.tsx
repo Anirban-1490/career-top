@@ -11,13 +11,13 @@ export function Counter({ endValue, startValue = 0, ...props }: ICounterProps) {
   const { number } = useSpring({
     from: { number: startValue },
     to: { number: endValue },
-    delay: 300,
+    delay: 700,
   });
 
   return (
     <animated.div {...props}>
       {number.to(
-        (num) => num.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "+"
+        (num) => num.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "+",
       )}
     </animated.div>
   );
