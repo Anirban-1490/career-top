@@ -8,12 +8,13 @@ import { FeatureSection } from "./components/sections/features";
 import { ReviewSection } from "./components/sections/reviews";
 import { PricingSection } from "./components/sections/pricing";
 import { CTA } from "./components/sections/cta";
+import { FlickeringGrid } from "@/components/ui/flickering-grid";
 
 const CareerUPHome = () => {
   return (
     <main>
-      <section className=" flex justify-center py-14 my-20 ">
-        <div className=" flex flex-col gap-12 items-center mx-10">
+      <section className=" flex justify-center py-14 my-20 relative">
+        <div className=" flex flex-col gap-12 items-center mx-10 z-1">
           <div>
             <h1 className=" text-xxl font-light text-center">
               No Stress Job Hunting
@@ -25,6 +26,14 @@ const CareerUPHome = () => {
 
           <SearchJob />
         </div>
+        <FlickeringGrid
+          className="absolute inset-0 top-[-10rem] w-full [mask-image:radial-gradient(860px_circle_at_center,black,transparent)]"
+          squareSize={4}
+          gridGap={6}
+          color="#F5004F"
+          maxOpacity={0.6}
+          flickerChance={0.1}
+        />
       </section>
       <section className="flex justify-center mb-[10rem]">
         <InView>
