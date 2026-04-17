@@ -83,7 +83,10 @@ export function DropColumn({
     <div
       className=" basis-full rounded-md bg-accent-neon-red-300 flex flex-col h-full"
       key={id}
-      ref={drop}
+      ref={(node) => {
+        if (node == null) return;
+        drop(node);
+      }}
     >
       <div className="p-6 flex justify-between items-center">
         <h3 className=" font-semibold">{label}</h3>
