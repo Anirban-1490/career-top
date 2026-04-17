@@ -8,6 +8,7 @@ import {
   StickyNote,
   ListChecks,
   Settings,
+  Layout,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -44,6 +45,12 @@ const sidebarLinks = [
     id: "trends",
     url: "/dashboard/trends",
     icon: Building2,
+  },
+  {
+    label: "Jobs Tracker",
+    id: "tracker",
+    url: "/dashboard/tracker",
+    icon: Layout,
   },
 ];
 
