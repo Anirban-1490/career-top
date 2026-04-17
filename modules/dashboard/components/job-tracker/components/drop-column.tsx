@@ -33,7 +33,7 @@ export function DropColumn({
     unknown
   >;
 }) {
-  const [{ isOver, getItem }, drop] = useDrop<IDragableTrackerProps>(
+  const [_, drop] = useDrop<IDragableTrackerProps>(
     () => ({
       accept: "job-card",
       drop: (item, monitor) => {
