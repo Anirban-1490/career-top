@@ -23,7 +23,10 @@ export function JobCard({ id, cardData, trackerType }: IJobCardProps) {
 
   return (
     <div
-      ref={ref}
+      ref={(node) => {
+        if (node == null) return;
+        ref(node);
+      }}
       className="py-4 px-5 bg-secondary border-accent-neon-red  rounded-md border text-white"
       key={id}
     >
