@@ -19,6 +19,7 @@
   --text-xl: 3rem;
   --color-neon-red: #F5004F;
   --color-accent-neon-red: var(--accent-neon-red);
+  --color-accent-neon-red-300: var(--accent-neon-red-300);
   --color-neon-yellow: rgb(249, 228, 0);
   --color-neon-purple: rgb(124, 0, 254);
   --color-neon-orange: #FFAF00;
@@ -60,8 +61,32 @@
 
 body {
   font-family: var(--font-inter);
-  /* background: var(--background);
-  color: var(--foreground); */
+  scrollbar-width: thin;
+
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+
+  height: 8px;
+
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  /* Makes the track invisible for a floating look */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ffffff;
+  /* Subtle gray thumb */
+  border-radius: 10px;
+  /* Fully rounded edges */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #e9e9e9;
+  /* Darkens on hover for interactivity */
 }
 
 :root {
@@ -81,6 +106,7 @@ body {
   --accent: rgb(38, 38, 38);
   --accent-foreground: rgb(250, 250, 250);
   --accent-neon-red: #ff588d;
+  --accent-neon-red-300: #6425387e;
   --destructive: rgb(255, 100, 103);
   --border: rgba(255, 255, 255, 0.1);
   --input: rgba(255, 255, 255, 0.15);
