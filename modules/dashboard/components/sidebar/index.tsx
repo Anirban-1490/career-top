@@ -6,7 +6,7 @@ import SidebarLinks from "./components/links";
 import SettingsWrapper from "./components/settings";
 import { SettingsPopup } from "./components/settings/components/popup";
 
-export function SideBar() {
+export async function SideBar() {
   return (
     <aside className=" w-[21rem] shrink-0  fixed left-0 top-0   px-6 py-10 h-full">
       <div className="flex flex-col h-full">
