@@ -1,108 +1,30 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
-import {
-  BriefcaseBusiness,
-  Building2,
-  Home,
-  StickyNote,
-  ListChecks,
-  Settings,
-  Layout,
-} from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import React, { useState } from "react";
-import { SettingsPopup } from "./components/settings";
+import { Settings } from "lucide-react";
 
-const sidebarLinks = [
-  {
-    label: "Home",
-    id: "home",
-    url: "/dashboard",
-    icon: Home,
-  },
-  {
-    label: "Resume Builder",
-    id: "resume",
-    url: "/dashboard/resume",
-    icon: StickyNote,
-  },
-  {
-    label: "Resume Optimizer",
-    id: "resume-optimizer",
-    url: "/dashboard/resume-optimizer",
-    icon: ListChecks,
-  },
-  {
-    label: "Job Search",
-    id: "jobs",
-    url: "/dashboard/jobs",
-    icon: BriefcaseBusiness,
-  },
-  {
-    label: "Industry Trends",
-    id: "trends",
-    url: "/dashboard/trends",
-    icon: Building2,
-  },
-  {
-    label: "Jobs Tracker",
-    id: "tracker",
-    url: "/dashboard/tracker",
-    icon: Layout,
-  },
-];
+import { user } from "@/lib/user";
+import SidebarLinks from "./components/links";
+import SettingsWrapper from "./components/settings";
+import { SettingsPopup } from "./components/settings/components/popup";
 
-interface ISidebarProps {
-  activeId?: string;
-}
-export function SideBar({ activeId }: ISidebarProps) {
-  const fullPathName = usePathname();
-
-  const [tabId, setTabId] = useState(activeId ? activeId : "home");
-  const pathName = fullPathName.trim().split("/")[2];
-  const fullTabId = pathName || tabId;
-
+export function SideBar() {
   return (
     <aside className=" w-[21rem] shrink-0  fixed left-0 top-0   px-6 py-10 h-full">
       <div className="flex flex-col h-full">
         <ul className=" flex flex-col gap-4 pl-0! h-full">
-          {sidebarLinks.map((link) => {
-            return (
-              <li
-                key={link.id}
-                onClick={(ev) => {
-                  setTabId(link.id);
-                }}
-                className="!list-none"
+          <SidebarLinks />
+          <SettingsWrapper>
+            <SettingsPopup user={user}>
+              <Button
+                key={"settings"}
+                variant={"ghost"}
+                size={"lg"}
+                className="!list-none font-semibold flex gap-5 items-center p-2.5 mt-auto w-fit"
               >
-                <Link
-                  href={link.url}
-                  className={`font-semibold flex gap-5 items-center p-2.5 rounded-sm ${
-                    fullTabId == link.id
-                      ? "bg-neon-red"
-                      : " text-foreground/50 hover:bg-secondary hover:text-foreground"
-                  } `}
-                >
-                  {<link.icon />}
-                  {link.label}
-                </Link>
-              </li>
-            );
-          })}
-          <SettingsPopup>
-            <Button
-              key={"settings"}
-              variant={"ghost"}
-              size={"lg"}
-              onClick={(ev) => {}}
-              className="!list-none font-semibold flex gap-5 items-center p-2.5 mt-auto w-fit"
-            >
-              <Settings />
-              Settings
-            </Button>
-          </SettingsPopup>
+                <Settings />
+                Settings
+              </Button>
+            </SettingsPopup>
+          </SettingsWrapper>
         </ul>
       </div>
     </aside>
