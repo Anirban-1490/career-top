@@ -29,11 +29,12 @@ export function EditorOutput({
 
   return (
     <div className="flex-grow  h-full bg-secondary py-8 overflow-auto overflow-x-hidden">
-      <div
-        ref={contentRef}
-        className=" w-full relative top-4  scale-[1.2]  origin-[center_top] pb-8"
-      >
-        <div className=" w-[8.27in] mx-auto min-h-[11.69in]  bg-white ">
+      <div className=" w-full relative top-4  scale-[1.2]  origin-[center_top] pb-8">
+        <div
+          ref={contentRef}
+          id="resume-preview"
+          className=" w-[8.27in] mx-auto min-h-[11.69in]  bg-white "
+        >
           <div
             className="px-[12mm] py-[9mm] flex flex-col gap-6
           "

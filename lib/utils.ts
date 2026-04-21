@@ -31,3 +31,17 @@ export const getDomain = () => {
 
   return "http://localhost:3000";
 };
+
+export const download = (blob: Blob, id: string) => {
+  const url = window.URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+
+  link.setAttribute("download", `resume_${id}.pdf`);
+
+  document.body.appendChild(link);
+  link.click();
+
+  link.parentNode?.removeChild(link);
+  window.URL.revokeObjectURL(url);
+};
