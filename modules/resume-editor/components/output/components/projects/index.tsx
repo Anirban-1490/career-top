@@ -22,6 +22,7 @@ export function OutputProjects({ control }: IControlProps) {
       description: project.description,
       startDate: project.startDate,
       endDate: project.endDate,
+      url: project.url,
     };
   });
 
