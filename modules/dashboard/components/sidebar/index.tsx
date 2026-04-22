@@ -1,12 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Settings } from "lucide-react";
 
-import { user } from "@/lib/user";
 import SidebarLinks from "./components/links";
 import SettingsWrapper from "./components/settings";
 import { SettingsPopup } from "./components/settings/components/popup";
+import { UserProfile } from "@/action/user-profile";
 
 export async function SideBar() {
+  const user = await UserProfile();
   return (
     <aside className=" w-[21rem] shrink-0  fixed left-0 top-0   px-6 py-10 h-full">
       <div className="flex flex-col h-full">

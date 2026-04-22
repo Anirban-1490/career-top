@@ -4,12 +4,9 @@ import { NextRequest, NextResponse } from "next/server";
 import puppeteer from "puppeteer-core";
 export async function POST(req: NextRequest) {
   //* authorize the user
-  try {
-    const user = await UserProfile();
-    if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-  } catch (error) {
+
+  const user = await UserProfile();
+  if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
