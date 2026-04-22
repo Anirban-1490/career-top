@@ -1,3 +1,3 @@
-import { checkUser } from "@/action/user-profile";
+import { checkUser, UserProfile } from "@/action/user-profile";
 
-export const user = await checkUser();
+export const user = await UserProfile();
