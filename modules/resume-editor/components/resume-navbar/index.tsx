@@ -4,10 +4,11 @@ import { ContainerWithSpinner } from "@/components/common/container-with-spinner
 import { Button } from "@/components/ui/button";
 import { download, getDomain } from "@/lib/utils";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { Download, Home, Share } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { RefObject } from "react";
+import { toast } from "sonner";
 
 export function EditorNavbar({
   ref,
@@ -27,7 +28,7 @@ export function EditorNavbar({
       htmlContent: string;
       id: string;
     }) => {
-      return await axios.post(
+      return await axios.post<BlobPart>(
         `${getDomain()}/api/download-resume`,
         {
           html: htmlContent,
@@ -43,11 +44,22 @@ export function EditorNavbar({
     },
     onSettled(data, error) {
       if (error) {
+        if ((error as unknown as AxiosError)?.status == 401) {
+          router.replace("/sign-up");
+          return;
+        }
+
+        toast.error("Failed to download resume. Please try again!");
+        return;
+      }
+      if (!data) {
+        toast.error("Failed to download resume. Please try again!");
         return;
       }
       const blob = new Blob([data?.data], { type: "application/pdf" });
 
       download(blob, resumeId);
+      toast.success("Resume downloaded successfully!");
     },
   });
 

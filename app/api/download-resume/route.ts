@@ -1,7 +1,18 @@
-import axios from "axios";
+import { UserProfile } from "@/action/user-profile";
+
 import { NextRequest, NextResponse } from "next/server";
 import puppeteer from "puppeteer-core";
 export async function POST(req: NextRequest) {
+  //* authorize the user
+  try {
+    const user = await UserProfile();
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+  } catch (error) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const { resumeId, html } = (await req.json()) as {
     resumeId: string;
     html: string;
@@ -15,6 +26,7 @@ export async function POST(req: NextRequest) {
   });
 
   const page = await browser.newPage();
+  await page.setJavaScriptEnabled(false);
   await page.setContent(html);
 
   //* generate a PDF buffer
