@@ -1,6 +1,8 @@
 import { Parser } from "html-to-react";
 import React, { PropsWithChildren } from "react";
 import { getDate } from "../output/lib/get-date";
+import Link from "next/link";
+import { Link2 } from "lucide-react";
 
 export interface IOutputSectionEntriesProps {
   id?: string;
@@ -11,6 +13,7 @@ export interface IOutputSectionEntriesProps {
   location?: string;
   org?: string;
   description?: string;
+  url?: string | null;
 }
 
 interface IOutputSection {
@@ -36,7 +39,23 @@ export function OutputSection({
             return (
               <div className="flex flex-col gap-0.5" key={entry.id}>
                 <div className=" flex justify-between">
-                  <div className=" font-semibold">{entry.name}</div>
+                  <div className=" font-semibold flex gap-1.5 items-center">
+                    {entry.name}{" "}
+                    {entry.url ? (
+                      <Link
+                        target="_blank"
+                        href={
+                          !entry.url?.includes("https://")
+                            ? `https://${entry.url ?? ""}`
+                            : entry.url
+                        }
+                      >
+                        <Link2 className=" size-4 text-neon-red" />
+                      </Link>
+                    ) : (
+                      ""
+                    )}
+                  </div>
                   <div>
                     {entry.startDate ? (
                       <>

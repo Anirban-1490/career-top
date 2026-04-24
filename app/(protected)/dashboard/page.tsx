@@ -1,6 +1,7 @@
-import { user } from "@/lib/user";
+import { UserProfile } from "@/action/user-profile";
 
 export default async function DashboardPage() {
+  const user = await UserProfile();
   return (
     <section className="h-full">
       <div>
