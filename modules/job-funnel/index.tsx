@@ -1,6 +1,6 @@
 "use client";
 
-import { ITrackerData } from "@/types/tracker";
+import { ITrackerData, Tracker } from "@/types/tracker";
 import { Chart, LinearScale } from "chart.js";
 import { SankeyController, Flow } from "chartjs-chart-sankey";
 import { useEffect, useRef } from "react";
@@ -15,7 +15,8 @@ const colors = {
   offered: "#F5004F",
   rejected: "#7c00fe",
 };
-const getColor = (key) => colors[key];
+type TypeColor = keyof typeof colors;
+const getColor = (key: TypeColor) => colors[key];
 export function JobFunnel({ data }: { data: ITrackerData }) {
   const chartContainer = useRef<HTMLCanvasElement | null>(null);
 
@@ -45,8 +46,10 @@ export function JobFunnel({ data }: { data: ITrackerData }) {
 
               { from: "interviewing", to: "offered", flow: getFlow("offer") },
             ],
-            colorFrom: (c) => getColor(c.dataset.data[c.dataIndex].from),
-            colorTo: (c) => getColor(c.dataset.data[c.dataIndex].to),
+            colorFrom: (c) =>
+              getColor(c.dataset.data[c.dataIndex].from as TypeColor),
+            colorTo: (c) =>
+              getColor(c.dataset.data[c.dataIndex].to as TypeColor),
 
             colorMode: "from",
             color: "white",
