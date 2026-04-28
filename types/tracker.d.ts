@@ -1,5 +1,6 @@
 import { TrackerType } from "@/modules/dashboard/components/job-tracker/schema";
 
+export type Tracker = "applied" | "interviewing" | "offer" | "rejected";
 export interface ITrackerData {
   jobCardList: IJobCardListData | null;
 
@@ -25,6 +26,7 @@ export interface ITrackerData {
       jobCardsPosition: string[];
     };
   };
+  metadata: { [kv in Tracker]: number };
 }
 
 interface IJobCardListData {
@@ -36,8 +38,6 @@ export interface IJobCardData extends TrackerType {
   updatedAt: string;
   id: string;
 }
-
-export type Tracker = "applied" | "interviewing" | "offer" | "rejected";
 
 export interface IDragableTrackerProps {
   id: string;

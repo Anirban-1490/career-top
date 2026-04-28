@@ -5,6 +5,7 @@ import {
   arrayUnion,
   doc,
   getDoc,
+  increment,
   setDoc,
   updateDoc,
 } from "firebase/firestore";
@@ -34,6 +35,12 @@ export async function initializeJobTracker() {
         offer: { id: "offer", label: "Offer", jobCardsPosition: [] },
         rejected: { id: "rejected", label: "Rejected", jobCardsPosition: [] },
       },
+      metadata: {
+        applied: 0,
+        interviewing: 0,
+        offer: 0,
+        rejected: 0,
+      },
     });
     return {
       error: null,
@@ -62,6 +69,7 @@ export async function addJobTracker(
       {
         [`jobCardList.${id}`]: jobCardData,
         [sectionListKey]: arrayUnion(id),
+        [`metadata.${tracker}`]: increment(1),
       },
     );
     return {
@@ -94,6 +102,8 @@ export async function updateTrackerPosition({
       {
         [prevSectionListKey]: arrayRemove(trackerId),
         [nextSectionListKey]: arrayUnion(trackerId),
+        [`metadata.${prevTracker}`]: increment(-1),
+        [`metadata.${nextTracker}`]: increment(1),
       },
     );
     return {
