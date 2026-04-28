@@ -1,3 +1,3 @@
-import { UserProfile } from "@/action/user-profile";
+import { checkUser, UserProfile } from "@/action/user-profile";
 
 export const user = await UserProfile();

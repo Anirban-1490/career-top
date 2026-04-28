@@ -1,4 +1,4 @@
-import { user } from "@/lib/user";
+import { UserProfile } from "@/action/user-profile";
 import { getResumes } from "@/modules/dashboard/action/get-resumes";
 import {
   dehydrate,
@@ -9,12 +9,13 @@ import dynamic from "next/dynamic";
 
 const UserResumes = dynamic(() =>
   import("@/modules/dashboard/components/resume").then(
-    (value) => value.AllResume
-  )
+    (value) => value.AllResume,
+  ),
 );
 
 export default async function Resume() {
   // const resumesPromise = getResumes(user?.uid as string);
+  const user = await UserProfile();
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["resumes", user?.uid as string],

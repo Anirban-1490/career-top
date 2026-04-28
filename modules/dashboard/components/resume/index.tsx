@@ -14,6 +14,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { ContainerWithSpinner } from "@/components/common/container-with-spinner";
 import { getResumes } from "../../action/get-resumes";
+import Image from "next/image";
 
 interface IALLResumeProps {
   // resumesPromise: Promise<{
@@ -103,21 +104,24 @@ export function AllResume({ userId }: IALLResumeProps) {
             {resumes.map((resume) => {
               return (
                 <div
-                  className="w-[18rem] h-[21rem]  rounded-md overflow-hidden flex flex-col"
+                  className="w-[18rem] h-[17rem]  rounded-md overflow-hidden flex flex-col"
                   key={resume.id}
                 >
-                  <div className=" basis-[50%] bg-white"></div>
-                  <div className=" bg-background flex-grow flex flex-col items-center p-5 ">
-                    <h3 className=" text-base flex-grow font-bold">
+                  <div className=" basis-[52%] bg-white relative overflow-hidden bg-[url(/resume-1.png)] bg-no-repeat bg-position-[center_top_-0.5rem] bg-cover"></div>
+                  <div className=" bg-background flex-grow flex flex-col  p-4 ">
+                    <h4 className=" text-base flex-grow font-bold">
                       {resume.name}
-                    </h3>
-                    <div className="w-full flex gap-3  items-center [&_button]:flex-1">
-                      {/* <div className=" basis-[40%]">
-                        <h5 className="text-sm">Created At:</h5>
-                        <p className=" text-xs">
-                          {dayjs(resume.createdAt).format("YYYY-MM-DD")}
-                        </p>
-                      </div> */}
+                    </h4>
+                    <div className="w-full flex gap-3  items-center ">
+                      <Button
+                        onClick={() => {
+                          router.push(`/resume/editor?id=${resume.id}`);
+                        }}
+                        className="[button]:flex-1"
+                        size={"sm"}
+                      >
+                        <Edit /> Edit Resume
+                      </Button>
                       <Button
                         onClick={async () => {
                           deleteSingleResumeMutate({
@@ -126,23 +130,16 @@ export function AllResume({ userId }: IALLResumeProps) {
                           });
                         }}
                         variant={"ghost"}
-                        className=" hover:text-neon-red"
+                        className=" hover:text-neon-red w-fit"
                       >
-                        <Trash /> Delete
-                      </Button>
-                      <Button
-                        onClick={() => {
-                          router.push(`/resume/editor?id=${resume.id}`);
-                        }}
-                      >
-                        <Edit /> Edit
+                        <Trash />
                       </Button>
                     </div>
                   </div>
                 </div>
               );
             })}
-            <div className="w-[18rem] h-[21rem] rounded-md  flex justify-center items-center  shadow-[0_0_1px_2px] shadow-neon-red/20">
+            <div className="w-[18rem] h-[17rem] rounded-md  flex justify-center items-center  shadow-[0_0_1px_2px] shadow-neon-red/20">
               <Button onClick={addNewResumeHandler}>
                 <Plus />
                 Add New Resume

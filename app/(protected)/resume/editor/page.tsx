@@ -1,5 +1,6 @@
 import { getResume } from "@/action/get-resume";
-import { user } from "@/lib/user";
+import { UserProfile } from "@/action/user-profile";
+
 import { Editor } from "@/modules/resume-editor";
 
 export default async function ResumeEditor({
@@ -8,6 +9,7 @@ export default async function ResumeEditor({
   searchParams: Promise<{ id: string | undefined }>;
 }) {
   const { id } = await searchParams;
+  const user = await UserProfile();
 
   const dataPromise = getResume(user?.uid as string, id as string);
 

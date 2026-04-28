@@ -41,15 +41,6 @@ export function Editor({
     },
   });
   const contentRef = useRef<HTMLDivElement>(null);
-  // const printHandler = useReactToPrint({
-  //   contentRef,
-  //   print: async (target) => {
-  //     console.log(target);
-  //     const html2pdf = (await import("html2pdf.js")).default;
-  //     const worker = html2pdf();
-  //     await worker.from(target).set({ filename: "resume.pdf" }).save();
-  //   },
-  // });
 
   const submitHandler = (data: ResumeOutputType) => {
     mutate({ userId: userId, resume: data, resumeId: id });
@@ -57,7 +48,7 @@ export function Editor({
 
   return (
     <main className="h-dvh overflow-hidden flex flex-col">
-      <EditorNavbar ref={contentRef} />
+      <EditorNavbar resumeId={id} ref={contentRef} />
       <FormProvider {...formMethods}>
         <main className="flex w-full flex-grow  overflow-hidden">
           <EditorSidebar>
