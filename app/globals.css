@@ -20,9 +20,9 @@
   --color-neon-red: #F5004F;
   --color-accent-neon-red: var(--accent-neon-red);
   --color-accent-neon-red-300: var(--accent-neon-red-300);
-  --color-neon-yellow: rgb(249, 228, 0);
-  --color-neon-purple: rgb(124, 0, 254);
-  --color-neon-orange: #FFAF00;
+  --color-neon-yellow: var(--neon-yellow);
+  --color-neon-purple: var(--neon-purple);
+  --color-neon-orange: var(--neon-orange);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -97,6 +97,9 @@ body {
   --card-foreground: rgb(250, 250, 250);
   --popover: rgb(23, 23, 23);
   --popover-foreground: rgb(250, 250, 250);
+  --neon-yellow: #f9e400;
+  --neon-purple: #7c00fe;
+  --neon-orange: #ffae00;
   --primary: rgb(229, 229, 229);
   --primary-foreground: rgb(23, 23, 23);
   --secondary: rgb(38, 38, 38);
@@ -160,6 +163,9 @@ body {
   --sidebar-accent-foreground: rgb(250, 250, 250);
   --sidebar-border: rgba(255, 255, 255, 0.1);
   --sidebar-ring: rgb(115, 115, 115);
+  --neon-yellow: #f9e400;
+  --neon-purple: #7c00fe;
+  --neon-orange: #ffae00;
 }
 
 

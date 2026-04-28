@@ -19,7 +19,7 @@ export function DropColumn({
 }: {
   id: Tracker;
   label: string;
-  currentSection: ITrackerData["sectionList"][Tracker];
+  currentSection?: ITrackerData["sectionList"][Tracker];
   trackerData: ITrackerData;
   setOptimisticData: Dispatch<SetStateAction<ITrackerData | null | undefined>>;
   setData: Dispatch<SetStateAction<ITrackerData | null | undefined>>;
@@ -37,6 +37,8 @@ export function DropColumn({
     () => ({
       accept: "job-card",
       drop: (item, monitor) => {
+        if (id === item.trackerType) return;
+
         const prevSectionCardList = trackerData.sectionList[
           item.trackerType
         ].jobCardsPosition.filter((id) => id != item.id);

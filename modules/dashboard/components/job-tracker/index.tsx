@@ -17,6 +17,9 @@ import { startTransition, useEffect, useOptimistic, useState } from "react";
 import { ITrackerData } from "@/types/tracker";
 import { DropColumn } from "./components/drop-column";
 
+import { Button } from "@/components/ui/button";
+import { JobFunnel } from "@/modules/job-funnel";
+
 const DNDTrackerWrapper = dynamic(
   () =>
     import("./components/dnd-tracker-wrapper").then(
@@ -31,6 +34,7 @@ export function JobTracker() {
   const queryClient = useQueryClient();
   const [data, setData] = useState<ITrackerData | null | undefined>();
   const [optimisticData, setOptimisticData] = useOptimistic(data);
+  const [showJobFunnel, setShowJobFunnel] = useState(false);
 
   const {
     data: jobTrackerData,
@@ -59,6 +63,7 @@ export function JobTracker() {
           await queryClient.invalidateQueries({
             queryKey: ["job-tracker-data"],
           });
+
           toast.success(`Job tracker initialized successfully!`);
         }
       },
@@ -89,7 +94,7 @@ export function JobTracker() {
       setOptimisticData(jobTrackerData?.trackerData);
       setData(jobTrackerData?.trackerData);
     });
-  }, []);
+  }, [jobTrackerData?.trackerData]);
 
   if (isTrackerLoading || isTrackerGettingInitialized) {
     return <ContainerWithSpinner />;
@@ -98,7 +103,7 @@ export function JobTracker() {
     return <div>Oops. Something went wrong please try again</div>;
   }
 
-  if (!jobTrackerData?.trackerData || !data) {
+  if (!jobTrackerData?.trackerData) {
     return (
       <EmptyContent
         title="No Tracker Added "
@@ -118,35 +123,51 @@ export function JobTracker() {
       {optimisticData && (
         <>
           <div className="flex gap-5 items-center mb-10">
-            <h2 className=" text-3xl font-semibold ">Job Tracker</h2>
+            <h2 className=" text-3xl font-semibold ">
+              {" "}
+              {!showJobFunnel ? "Job Tracker" : "Job Funnel"}
+            </h2>
             {isTrackerPositionUpdating && (
               <ContainerWithSpinner
                 parentProps={{ className: "w-fit! h-fit!" }}
                 spinnerProps={{ className: " size-6!" }}
               />
             )}
+            <Button
+              className="ml-auto"
+              size={"sm"}
+              disabled={isTrackerLoading || isTrackerPositionUpdating}
+              onClick={() => setShowJobFunnel((prev) => !prev)}
+            >
+              {showJobFunnel ? "Show Job Tracker" : "Show Job Funnel"}
+            </Button>
           </div>
-          <DNDTrackerWrapper>
-            <DndTracker>
-              {(jobTrackerColumns) => {
-                return jobTrackerColumns.map((section) => {
-                  const currentSection = data?.sectionList?.[section.id];
-                  return (
-                    <DropColumn
-                      key={section.id}
-                      id={section.id}
-                      label={section.label}
-                      currentSection={currentSection}
-                      trackerData={optimisticData}
-                      setOptimisticData={setOptimisticData}
-                      setData={setData}
-                      updateTrackerPositionMutate={updateTrackerPositionMutate}
-                    />
-                  );
-                });
-              }}
-            </DndTracker>
-          </DNDTrackerWrapper>
+          {!showJobFunnel && (
+            <DNDTrackerWrapper>
+              <DndTracker>
+                {(jobTrackerColumns) => {
+                  return jobTrackerColumns.map((section) => {
+                    const currentSection = data?.sectionList?.[section.id];
+                    return (
+                      <DropColumn
+                        key={section.id}
+                        id={section.id}
+                        label={section.label}
+                        currentSection={currentSection}
+                        trackerData={optimisticData}
+                        setOptimisticData={setOptimisticData}
+                        setData={setData}
+                        updateTrackerPositionMutate={
+                          updateTrackerPositionMutate
+                        }
+                      />
+                    );
+                  });
+                }}
+              </DndTracker>
+            </DNDTrackerWrapper>
+          )}
+          {showJobFunnel && <JobFunnel data={jobTrackerData.trackerData} />}
         </>
       )}
     </>
