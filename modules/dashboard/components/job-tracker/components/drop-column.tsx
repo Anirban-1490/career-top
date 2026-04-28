@@ -19,7 +19,7 @@ export function DropColumn({
 }: {
   id: Tracker;
   label: string;
-  currentSection: ITrackerData["sectionList"][Tracker];
+  currentSection?: ITrackerData["sectionList"][Tracker];
   trackerData: ITrackerData;
   setOptimisticData: Dispatch<SetStateAction<ITrackerData | null | undefined>>;
   setData: Dispatch<SetStateAction<ITrackerData | null | undefined>>;
