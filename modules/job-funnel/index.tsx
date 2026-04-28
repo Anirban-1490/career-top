@@ -1,12 +1,10 @@
 "use client";
 
-import { ITrackerData, Tracker } from "@/types/tracker";
+import { ITrackerData } from "@/types/tracker";
 import { Chart, LinearScale } from "chart.js";
 import { SankeyController, Flow } from "chartjs-chart-sankey";
 import { useEffect, useRef } from "react";
 import { getSankeyFlowForJobTracker } from "../dashboard/components/job-tracker/utils/get-sankey-flow";
-
-import twColors from "tailwindcss/colors";
 
 Chart.register(SankeyController, Flow, LinearScale);
 const colors = {

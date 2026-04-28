@@ -37,6 +37,8 @@ export function DropColumn({
     () => ({
       accept: "job-card",
       drop: (item, monitor) => {
+        if (id === item.trackerType) return;
+
         const prevSectionCardList = trackerData.sectionList[
           item.trackerType
         ].jobCardsPosition.filter((id) => id != item.id);

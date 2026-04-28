@@ -91,6 +91,14 @@ export async function updateTrackerPosition({
   nextTracker,
 }: IUpdateTrackerPositionProps) {
   const user = await checkUser();
+
+  if (prevTracker === nextTracker) {
+    return {
+      error: null,
+      message: "Tracker already in this section",
+    };
+  }
+
   const prevSectionListKey = `sectionList.${prevTracker}.jobCardsPosition`;
   const nextSectionListKey = `sectionList.${nextTracker}.jobCardsPosition`;
 
