@@ -9,14 +9,22 @@
 <p align="center">HUNT • APPLY • INTERVIEW</p>
 <P align="center" >No Stress Job Hunting</P>
 
+## Features
+- AI powered `Resume Builder`  
+- AI powered `Resume Optimizer`
+- AI powered `Industry Trends Viewer`
+- `Jobs Search` from places like Indeed
+- `Job Tracker` to track your job hunt
+- `Job Funnel View`
+- `Dashboard View` to check important info at a glance (In Progress)
+- `Interview Prep` (Coming Soon)
+
+
 
 <br/>
 <br/>
 <br/>
-<br/>
-<br/>
-<br/>
-<h2 align="center">Some Tech Stacks</h2>
+<h2 align="center">Tech Stacks</h2>
 
 
 <p align="center">
