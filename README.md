@@ -12,11 +12,11 @@
 ## Features
 - AI powered `Resume Builder`  
 - AI powered `Resume Optimizer`
-- AI powered `Industry Trends Viewer`
+- AI powered `Industry Trends Viewer` which updates after certain period using inngest 
 - `Jobs Search` from places like Indeed
 - `Job Tracker` to track your job hunt
-- `Job Funnel View`
-- `Dashboard View` to check important info at a glance (In Progress)
+- `Job Funnel View` which is a Sankey diagram
+- `Dashboard View` to check important info at a glance such as a compact view of industry trends (In Progress)
 - `Interview Prep` (Coming Soon)
 
 
